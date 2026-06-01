@@ -512,3 +512,8 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Back
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.genruntimeconfig.cache
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\ref\CMS.Backend.dll
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.sourcelink.json
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.MvcApplicationPartsAssemblyInfo.cs

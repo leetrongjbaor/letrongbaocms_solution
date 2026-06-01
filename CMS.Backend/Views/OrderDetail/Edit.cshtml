@@ -1,0 +1,66 @@
+﻿@model CMS.Data.Entities.OrderDetail
+@{
+    ViewData["Title"] = "Sửa Chi Tiết Đơn Hàng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-warning fw-bold mb-4">✏️ CHỈNH SỬA CHI TIẾT ĐƠN HÀNG</h2>
+            <hr />
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />  @* QUAN TRỌNG — không xóa *@
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Đơn hàng:</label>
+                    <select asp-for="OrderId" class="form-select">
+                        <option value="">-- Chọn đơn hàng --</option>
+                        @foreach (var o in ViewBag.Orders)
+                        {
+                            <option value="@o.Id"
+                                    selected="@(o.Id == Model.OrderId ? "selected" : null)">
+                                #@o.Id — @(o.Customer?.FullName ?? "N/A")
+                                (@o.OrderDate.ToString("dd/MM/yyyy"))
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Sản phẩm:</label>
+                    <select asp-for="ProductId" class="form-select">
+                        <option value="">-- Chọn sản phẩm --</option>
+                        @foreach (var p in ViewBag.Products)
+                        {
+                            <option value="@p.Id"
+                                    selected="@(p.Id == Model.ProductId ? "selected" : null)">
+                                @p.Name — @p.Price.ToString("N0") VNĐ
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Số lượng:</label>
+                        <input asp-for="Quantity" class="form-control"
+                               type="number" min="1" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Đơn giá (VNĐ):</label>
+                        <input asp-for="UnitPrice" class="form-control"
+                               type="number" min="0" />
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning px-4">
+                        💾 Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

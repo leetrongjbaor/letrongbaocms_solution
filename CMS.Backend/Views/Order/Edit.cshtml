@@ -1,0 +1,59 @@
+﻿@model CMS.Data.Entities.Order
+@{
+    ViewData["Title"] = "Sửa Đơn Hàng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-warning fw-bold mb-4">✏️ CHỈNH SỬA ĐƠN HÀNG</h2>
+            <hr />
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />        @* QUAN TRỌNG *@
+                <input type="hidden" asp-for="OrderDate" /> @* Giữ nguyên ngày đặt *@
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Khách hàng:</label>
+                    <select asp-for="CustomerId" class="form-select">
+                        <option value="">-- Chọn khách hàng --</option>
+                        @foreach (var c in ViewBag.Customers)
+                        {
+                            <option value="@c.Id"
+                                    selected="@(c.Id == Model.CustomerId ? "selected" : null)">
+                                @c.FullName (@c.Phone)
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Trạng thái:</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="0" selected="@(Model.Status == 0 ? "selected" : null)">
+                            ⏳ Chờ duyệt
+                        </option>
+                        <option value="1" selected="@(Model.Status == 1 ? "selected" : null)">
+                            🚚 Đang giao
+                        </option>
+                        <option value="2" selected="@(Model.Status == 2 ? "selected" : null)">
+                            ✅ Đã xong
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Ghi chú:</label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning px-4">
+                        💾 Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

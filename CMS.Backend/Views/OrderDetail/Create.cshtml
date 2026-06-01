@@ -1,0 +1,77 @@
+﻿@model CMS.Data.Entities.OrderDetail
+@{
+    ViewData["Title"] = "Thêm Chi Tiết Đơn Hàng";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-success fw-bold mb-4">➕ THÊM CHI TIẾT ĐƠN HÀNG</h2>
+            <hr />
+            <form asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Đơn hàng:</label>
+                    <select asp-for="OrderId" class="form-select">
+                        <option value="">-- Chọn đơn hàng --</option>
+                        @foreach (var o in ViewBag.Orders)
+                        {
+                            <option value="@o.Id">
+                                #@o.Id — @(o.Customer?.FullName ?? "N/A")
+                                (@o.OrderDate.ToString("dd/MM/yyyy"))
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Sản phẩm:</label>
+                    <select asp-for="ProductId" class="form-select" id="productSelect"
+                            onchange="fillPrice(this)">
+                        <option value="">-- Chọn sản phẩm --</option>
+                        @foreach (var p in ViewBag.Products)
+                        {
+                            <option value="@p.Id" data-price="@p.Price">
+                                @p.Name — @p.Price.ToString("N0") VNĐ
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Số lượng:</label>
+                        <input asp-for="Quantity" class="form-control"
+                               type="number" min="1" value="1" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Đơn giá (VNĐ):</label>
+                        <input asp-for="UnitPrice" class="form-control"
+                               type="number" min="0" id="unitPrice" />
+                        <div class="form-text text-muted">
+                            Tự động điền khi chọn sản phẩm
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success px-4">
+                        💾 Lưu chi tiết
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Tự động điền đơn giá khi chọn sản phẩm
+        function fillPrice(select) {
+            const price = select.options[select.selectedIndex]?.dataset?.price ?? 0;
+            document.getElementById('unitPrice').value = price;
+        }
+    </script>
+}
