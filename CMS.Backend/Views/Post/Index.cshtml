@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CMS.Data.Entities.Post>
+@{
+    ViewData["Title"] = "Danh Sách Bài Viết";
+}
+
+<style>
+    .text-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-danger fw-bold">📝 DANH SÁCH BÀI VIẾT</h2>
+        <div class="d-flex gap-2 align-items-center">
+            <span class="badge bg-secondary fs-6">Tổng: @Model.Count() bài viết</span>
+            <a asp-action="Create" class="btn btn-success btn-sm">
+                <i class="bi bi-plus-circle"></i> Thêm bài viết
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" class="card-img-top"
+                             style="height:200px; object-fit:cover;" alt="@item.Title"
+                             onerror="this.src='https://picsum.photos/400/200'">
+                    }
+                    else
+                    {
+                        <img src="https://picsum.photos/400/200" class="card-img-top"
+                             style="height:200px; object-fit:cover;" alt="No image">
+                    }
+
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-info text-dark mb-2 align-self-start">
+                            @(item.Category?.Name ?? "N/A")
+                        </span>
+
+                        <h5 class="card-title fw-bold text-clamp" style="-webkit-line-clamp:2;">
+                            @item.Title
+                        </h5>
+                        <p class="card-text text-muted small flex-grow-1 text-clamp">
+                            @item.Content
+                        </p>
+
+                        <small class="text-muted mb-3">
+                            📅 @item.CreatedDate.ToString("dd/MM/yyyy")
+                        </small>
+
+                        <div class="d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@item.Id"
+                               class="btn btn-outline-primary btn-sm flex-grow-1">Chi tiết</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id"
+                               class="btn btn-outline-warning btn-sm flex-grow-1">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id"
+                               class="btn btn-outline-danger btn-sm flex-grow-1"
+                               onclick="return confirm('Xóa bài viết này?')">Xóa</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
