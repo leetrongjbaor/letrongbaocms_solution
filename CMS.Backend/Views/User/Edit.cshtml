@@ -1,0 +1,53 @@
+﻿@model CMS.Data.Entities.User
+@{
+    ViewData["Title"] = "Sửa Thành Viên";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-warning fw-bold mb-4">✏️ CHỈNH SỬA THÀNH VIÊN</h2>
+            <hr />
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />  @* QUAN TRỌNG — không xóa *@
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tên đăng nhập:</label>
+                    <input asp-for="Username" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Họ và tên:</label>
+                    <input asp-for="FullName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Mật khẩu:</label>
+                    <input asp-for="PasswordHash" class="form-control"
+                           type="password" />
+                    <div class="form-text text-muted">
+                        Để trống nếu không muốn đổi mật khẩu
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Quyền hạn:</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="Admin" selected="@(Model.Role == "Admin" ? "selected" : null)">Admin</option>
+                        <option value="Editor" selected="@(Model.Role == "Editor" ? "selected" : null)">Editor</option>
+                        <option value="Moderator" selected="@(Model.Role == "Moderator" ? "selected" : null)">Moderator</option>
+                        <option value="Member" selected="@(Model.Role == "Member" ? "selected" : null)">Member</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning px-4">
+                        💾 Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

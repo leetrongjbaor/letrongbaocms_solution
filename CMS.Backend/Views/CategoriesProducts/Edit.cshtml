@@ -1,0 +1,34 @@
+﻿@model CMS.Data.Entities.CategoryProduct
+@{
+    ViewData["Title"] = "Sửa Danh Mục Sản Phẩm";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-warning fw-bold mb-4">✏️ CHỈNH SỬA DANH MỤC SẢN PHẨM</h2>
+            <hr />
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />  @* QUAN TRỌNG — không xóa *@
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tên danh mục:</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Mô tả:</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning px-4">
+                        💾 Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

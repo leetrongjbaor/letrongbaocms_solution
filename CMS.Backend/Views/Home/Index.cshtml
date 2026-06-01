@@ -1,0 +1,159 @@
+﻿@model IEnumerable<CMS.Data.Entities.Post>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+    .stat-card {
+        border: none;
+        border-radius: 16px;
+        padding: 20px 24px;
+    }
+
+    .news-card {
+        border: none;
+        border-radius: 14px;
+        overflow: hidden;
+        transition: transform .25s, box-shadow .25s;
+    }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,.1);
+        }
+
+    .news-image {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .module-card {
+        border-radius: 14px;
+        border: 1px solid #e2e8f0;
+        transition: border-color .2s;
+    }
+
+        .module-card:hover {
+            border-color: #94a3b8;
+        }
+
+    .section-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 12px;
+        display: block;
+    }
+</style>
+
+@* ===== WELCOME ===== *@
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+        <h4 class="fw-bold mb-1">Chào mừng trở lại, Lê Trọng Bảo 👋</h4>
+        <p class="text-muted mb-0">Hệ thống quản lý nội dung — ASP.NET Core MVC</p>
+    </div>
+    <span class="badge bg-primary px-3 py-2">MSSV: 2123110056</span>
+</div>
+
+@* ===== STAT CARDS ===== *@
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="stat-card bg-primary bg-opacity-10 text-center">
+            <div class="fs-1 fw-bold text-primary">6</div>
+            <div class="text-muted small">Tổng module</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card bg-success bg-opacity-10 text-center">
+            <div class="fs-1 fw-bold text-success">3</div>
+            <div class="text-muted small">Entity CMS</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card bg-warning bg-opacity-10 text-center">
+            <div class="fs-1 fw-bold text-warning">3</div>
+            <div class="text-muted small">Entity Shop</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card bg-danger bg-opacity-10 text-center">
+            <div class="fs-1 fw-bold text-danger">MVC</div>
+            <div class="text-muted small">Kiến trúc</div>
+        </div>
+    </div>
+</div>
+
+@* ===== MODULE CMS ===== *@
+<span class="section-label">📰 Quản lý CMS</span>
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">📁 Danh mục</h6>
+                <p class="text-muted small">Quản lý danh mục bài viết CMS.</p>
+                <a asp-controller="Category" asp-action="Index"
+                   class="btn btn-outline-primary btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">📝 Bài viết</h6>
+                <p class="text-muted small">Quản lý nội dung & hình ảnh bài viết.</p>
+                <a asp-controller="Post" asp-action="Index"
+                   class="btn btn-outline-success btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">👤 Thành viên</h6>
+                <p class="text-muted small">Quản lý tài khoản, phân quyền Role.</p>
+                <a asp-controller="User" asp-action="Index"
+                   class="btn btn-outline-warning btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ===== MODULE SHOP ===== *@
+<span class="section-label">🛒 Quản lý cửa hàng</span>
+<div class="row g-3 mb-5">
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">📦 Danh mục SP</h6>
+                <p class="text-muted small">Phân loại sản phẩm theo nhóm hàng.</p>
+                <a asp-controller="CategoriesProducts" asp-action="Index"
+                   class="btn btn-outline-info btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">🛍️ Sản phẩm</h6>
+                <p class="text-muted small">Quản lý giá, tồn kho, mô tả.</p>
+                <a asp-controller="Product" asp-action="Index"
+                   class="btn btn-outline-success btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">👥 Khách hàng</h6>
+                <p class="text-muted small">Danh sách, thông tin liên hệ.</p>
+                <a asp-controller="Customer" asp-action="Index"
+                   class="btn btn-outline-warning btn-sm">Xem danh sách</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card module-card h-100 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold">🧾 Đơn hàng</h6>

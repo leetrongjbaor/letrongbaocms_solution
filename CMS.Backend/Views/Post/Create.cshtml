@@ -1,0 +1,51 @@
+﻿@model CMS.Data.Entities.Post
+@{
+    ViewData["Title"] = "Thêm Bài Viết";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+            <h2 class="text-success fw-bold mb-4">✏️ THÊM BÀI VIẾT MỚI</h2>
+            <hr />
+            <form asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tiêu đề:</label>
+                    <input asp-for="Title" class="form-control" placeholder="Nhập tiêu đề bài viết..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nội dung:</label>
+                    <textarea asp-for="Content" class="form-control" rows="5"
+                              placeholder="Nhập nội dung bài viết..."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Danh mục:</label>
+                    <select asp-for="CategoryId" class="form-select">
+                        <option value="">-- Chọn danh mục --</option>
+                        @foreach (var cat in ViewBag.Categories)
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">URL Hình ảnh:</label>
+                    <input asp-for="ImageUrl" class="form-control"
+                           placeholder="https://example.com/image.jpg" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success px-4">
+                        💾 Lưu bài viết
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Hủy bỏ</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
