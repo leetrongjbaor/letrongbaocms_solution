@@ -32,7 +32,9 @@ namespace CMS.Backend.Controllers
                     p.Name,
                     p.Price,
                     p.ImageUrl,
-                    p.StockQuantity
+                    p.StockQuantity,
+                    p.Description,                         
+                    CategoryName = p.CategoryProduct.Name   
                 })
                 .ToListAsync();
 
@@ -51,7 +53,9 @@ namespace CMS.Backend.Controllers
                     p.Name,
                     p.Price,
                     p.ImageUrl,
-                    p.StockQuantity
+                    p.StockQuantity,
+                    p.Description,                          
+                    CategoryName = p.CategoryProduct.Name   
                 })
                 .ToListAsync();
 

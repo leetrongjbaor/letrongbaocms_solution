@@ -22,6 +22,7 @@
                 <th>Danh Mục</th>
                 <th class="text-end">Giá (VNĐ)</th>
                 <th class="text-center">Tồn Kho</th>
+                <th>Hình Ảnh</th>
                 <th>Mô Tả</th>
                 <th style="width:160px" class="text-center">Thao Tác</th>
             </tr>
@@ -46,6 +47,16 @@
                         else
                         {
                             <span class="badge bg-warning text-dark">@item.StockQuantity</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" style="max-height:50px; max-width:70px; object-fit:cover;" class="rounded" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
                         }
                     </td>
                     <td>@item.Description</td>

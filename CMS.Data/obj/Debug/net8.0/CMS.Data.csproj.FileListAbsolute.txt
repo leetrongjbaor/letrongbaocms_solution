@@ -27,3 +27,4 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Data\obj\Debug\net8.0\refint\CMS.
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Data\obj\Debug\net8.0\CMS.Data.pdb
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Data\obj\Debug\net8.0\CMS.Data.genruntimeconfig.cache
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Data\obj\Debug\net8.0\ref\CMS.Data.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Data\obj\Debug\net8.0\CMS.Data.sourcelink.json

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.Backend.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;

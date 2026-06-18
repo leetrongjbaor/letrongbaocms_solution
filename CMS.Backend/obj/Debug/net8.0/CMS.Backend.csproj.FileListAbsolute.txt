@@ -504,7 +504,6 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwe
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.development.json
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Back.83063402.Up2Date
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.dll
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\refint\CMS.Backend.dll

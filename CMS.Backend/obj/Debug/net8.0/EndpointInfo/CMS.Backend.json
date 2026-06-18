@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Categories": {
+      "get": {
+        "tags": [
+          "CategoriesApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/CategoriesProducts": {
       "get": {
         "tags": [
@@ -62,6 +74,41 @@
       "get": {
         "tags": [
           "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Posts": {
+      "get": {
+        "tags": [
+          "PostsApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Posts/{id}": {
+      "get": {
+        "tags": [
+          "PostsApi"
         ],
         "parameters": [
           {
@@ -160,10 +207,16 @@
   },
   "tags": [
     {
+      "name": "CategoriesApi"
+    },
+    {
       "name": "CategoriesProductsApi"
     },
     {
       "name": "Orders"
+    },
+    {
+      "name": "PostsApi"
     },
     {
       "name": "Products"

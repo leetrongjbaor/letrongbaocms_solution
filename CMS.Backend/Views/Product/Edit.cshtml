@@ -1,4 +1,4 @@
-﻿@model CMS.Data.Entities.Product
+@model CMS.Data.Entities.Product
 @{
     ViewData["Title"] = "Sửa Sản Phẩm";
 }
@@ -8,7 +8,7 @@
         <div class="card-body p-4">
             <h2 class="text-warning fw-bold mb-4">✏️ CHỈNH SỬA SẢN PHẨM</h2>
             <hr />
-            <form asp-action="Edit" method="post">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
                 <input type="hidden" asp-for="Id" />  @* QUAN TRỌNG — không xóa *@
 
                 <div class="mb-3">
@@ -39,6 +39,24 @@
                         <label class="form-label fw-bold">Tồn kho:</label>
                         <input asp-for="StockQuantity" class="form-control" type="number" min="0" />
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Hình ảnh:</label>
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="mb-2 p-3 bg-light rounded-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="@Model.ImageUrl" class="rounded border" style="max-height:120px; max-width:120px; object-fit:cover;" />
+                                <div>
+                                    <p class="mb-1 text-muted small">Ảnh hiện tại</p>
+                                    <p class="mb-0 text-muted small fst-italic">Chọn ảnh mới bên dưới để thay thế, hoặc bỏ trống để giữ ảnh cũ.</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+                    <small class="text-muted">Chấp nhận: JPG, PNG, GIF, WEBP. Bỏ trống nếu không muốn thay đổi ảnh.</small>
                 </div>
 
                 <div class="mb-4">
