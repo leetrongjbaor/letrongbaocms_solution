@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CMS.Backend</name>
+    </assembly>
+    <members>
+        <member name="T:CMS.Backend.Controllers.CategoriesApiController">
+            <summary>
+            API Quản lý danh mục bài viết tin tức
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.CategoriesApiController.GetAll">
+            <summary>
+            Lấy danh sách tất cả danh mục bài viết tin tức
+            </summary>
+            <returns>Danh sách danh mục bài viết</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.CategoriesProductsApiController">
+            <summary>
+            API Quản lý danh mục sản phẩm thời trang
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.CategoriesProductsApiController.GetAll">
+            <summary>
+            Lấy danh sách tất cả danh mục sản phẩm thời trang
+            </summary>
+            <returns>Danh sách danh mục sản phẩm</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.CustomersApiController">
+            <summary>
+            API Đăng ký và Đăng nhập dành cho Khách hàng
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.CustomersApiController.Register(CMS.Data.Entities.Customer)">
+            <summary>
+            Đăng ký tài khoản khách hàng mới
+            </summary>
+            <param name="model">Thông tin khách hàng đăng ký</param>
+            <returns>Kết quả đăng ký thành công và thông tin khách hàng</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.CustomersApiController.Login(CMS.Backend.Controllers.LoginRequest)">
+            <summary>
+            Đăng nhập hệ thống dành cho khách hàng
+            </summary>
+            <param name="request">Thông tin tài khoản Email và Mật khẩu</param>
+            <returns>Kết quả đăng nhập thành công và thông tin hồ sơ khách hàng</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.API.OrderDetailsApiController">
+            <summary>
+            API Quản lý chi tiết đơn hàng (OrderDetail)
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.API.OrderDetailsApiController.GetAll">
+            <summary>
+            Lấy toàn bộ danh sách chi tiết dòng đơn đặt hàng
+            </summary>
+            <returns>Danh sách chi tiết dòng đơn hàng</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.API.OrderDetailsApiController.GetByOrderId(System.Int32)">
+            <summary>
+            Lấy danh sách chi tiết sản phẩm đã mua theo ID đơn hàng
+            </summary>
+            <param name="orderId">Mã định danh đơn hàng</param>
+            <returns>Danh sách chi tiết sản phẩm trong đơn hàng</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.API.OrderDetailsApiController.GetById(System.Int32)">
+            <summary>
+            Lấy thông tin chi tiết một dòng đơn hàng theo ID
+            </summary>
+            <param name="id">Mã định danh của dòng chi tiết đơn hàng</param>
+            <returns>Chi tiết dòng đơn hàng</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.API.UsersApiController">
+            <summary>
+            API Quản lý Tài khoản Quản trị viên/Biên tập viên (User)
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.API.UsersApiController.GetAll">
+            <summary>
+            Lấy danh sách tài khoản quản trị hệ thống (Ẩn thông tin mật khẩu bảo mật)
+            </summary>
+            <returns>Danh sách tài khoản</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.API.UsersApiController.GetById(System.Int32)">
+            <summary>
+            Lấy thông tin chi tiết một tài khoản quản trị theo ID (Ẩn thông tin mật khẩu bảo mật)
+            </summary>
+            <param name="id">Mã định danh tài khoản quản trị viên</param>
+            <returns>Thông tin chi tiết tài khoản</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.OrdersController">
+            <summary>
+            API Quản lý Đơn hàng và Đặt hàng
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.OrdersController.GetAll">
+            <summary>
+            Lấy toàn bộ danh sách đơn hàng trong hệ thống
+            </summary>
+            <returns>Danh sách đơn hàng tóm tắt</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.OrdersController.GetDetail(System.Int32)">
+            <summary>
+            Lấy thông tin chi tiết một đơn hàng theo ID
+            </summary>
+            <param name="id">Mã định danh đơn hàng</param>
+            <returns>Chi tiết đơn hàng</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.OrdersController.CreateOrder(CMS.Backend.Controllers.OrderInputDTO)">
+            <summary>
+            Tiếp nhận và tạo mới đơn đặt hàng từ giỏ hàng Frontend
+            </summary>
+            <param name="input">Thông tin giỏ hàng và khách hàng đặt hàng</param>
+            <returns>Mã đơn hàng mới được tạo</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.PostsApiController.GetAll(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Lấy danh sách toàn bộ bài viết (hỗ trợ phân trang tùy chọn)
+            </summary>
+            <param name="page">Số thứ tự trang (bắt đầu từ 1). Để trống hoặc bằng 0 để lấy toàn bộ không phân trang.</param>
+            <param name="pageSize">Số lượng bài viết trên mỗi trang. Để trống hoặc bằng 0 để lấy toàn bộ không phân trang.</param>
+            <returns>Danh sách bài viết hoặc đối tượng phân trang chứa dữ liệu bài viết.</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.PostsApiController.GetById(System.Int32)">
+            <summary>
+            Lấy thông tin chi tiết một bài viết theo ID
+            </summary>
+            <param name="id">Mã định danh của bài viết</param>
+            <returns>Thông tin chi tiết bài viết</returns>
+        </member>
+        <member name="T:CMS.Backend.Controllers.ProductsController">
+            <summary>
+            API Quản lý Sản phẩm thời trang
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Controllers.ProductsController.GetAll">
+            <summary>
+            Lấy toàn bộ danh sách sản phẩm
+            </summary>
+            <returns>Danh sách sản phẩm tóm tắt</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.ProductsController.GetByCategoryProduct(System.Int32)">
+            <summary>
+            Lấy danh sách sản phẩm lọc theo Danh mục sản phẩm thời trang
+            </summary>
+            <param name="categoryProductId">Mã định danh danh mục sản phẩm</param>
+            <returns>Danh sách sản phẩm thuộc danh mục</returns>
+        </member>
+        <member name="M:CMS.Backend.Controllers.ProductsController.GetDetail(System.Int32)">
+            <summary>
+            Lấy chi tiết thông tin sản phẩm theo ID
+            </summary>
+            <param name="id">Mã định danh sản phẩm</param>
+            <returns>Thông tin chi tiết sản phẩm</returns>
+        </member>
+    </members>
+</doc>

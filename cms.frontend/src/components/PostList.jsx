@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import blogService from '../services/blogService';
+import { getImageUrl } from '../utils/imageHelper';
 
 const PostList = ({ selectedCategoryId, onViewDetail }) => {
     const [posts, setPosts] = useState([]);
@@ -148,7 +149,7 @@ const PostList = ({ selectedCategoryId, onViewDetail }) => {
                 <div className="row">
                     {filteredPosts.map((item) => {
                         const fallbackBlogImage = "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop";
-                        const imageUrl = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : fallbackBlogImage;
+                        const imageUrl = getImageUrl(item.imageUrl, fallbackBlogImage);
                         
                         // Khắc phục lỗi shortDescription bằng cách cắt content từ db
                         const summaryText = item.content 

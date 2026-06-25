@@ -1,0 +1,25 @@
+.post-detail__cover {
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Định dạng cho nội dung bài viết render từ CKEditor */
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.post-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+}

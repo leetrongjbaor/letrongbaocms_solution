@@ -1,4 +1,4 @@
-﻿/*
+/*
 Họ Tên: Lê Trọng Bảo
 MSSV: 2123110056
 VS: 1.0
@@ -9,6 +9,9 @@ using CMS.Data;
 
 namespace CMS.Backend.Controllers
 {
+    /// <summary>
+    /// API Quản lý Sản phẩm thời trang
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -20,8 +23,10 @@ namespace CMS.Backend.Controllers
             _context = context;
         }
 
-        // ===== GET: api/products =====
-        // Lấy danh sách nhẹ cho trang cửa hàng
+        /// <summary>
+        /// Lấy toàn bộ danh sách sản phẩm
+        /// </summary>
+        /// <returns>Danh sách sản phẩm tóm tắt</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -41,8 +46,11 @@ namespace CMS.Backend.Controllers
             return Ok(products);
         }
 
-        // ===== GET: api/products/categoryproduct/{categoryProductId} =====
-        // Lọc sản phẩm theo danh mục
+        /// <summary>
+        /// Lấy danh sách sản phẩm lọc theo Danh mục sản phẩm thời trang
+        /// </summary>
+        /// <param name="categoryProductId">Mã định danh danh mục sản phẩm</param>
+        /// <returns>Danh sách sản phẩm thuộc danh mục</returns>
         [HttpGet("categoryproduct/{categoryProductId}")]
         public async Task<IActionResult> GetByCategoryProduct(int categoryProductId)
         {
@@ -62,8 +70,11 @@ namespace CMS.Backend.Controllers
             return Ok(products);
         }
 
-        // ===== GET: api/products/{id} =====
-        // Lấy đầy đủ thông tin cho trang chi tiết
+        /// <summary>
+        /// Lấy chi tiết thông tin sản phẩm theo ID
+        /// </summary>
+        /// <param name="id">Mã định danh sản phẩm</param>
+        /// <returns>Thông tin chi tiết sản phẩm</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CMS.Data;
 
 namespace CMS.Backend.Controllers
 {
+    /// <summary>
+    /// API Quản lý danh mục bài viết tin tức
+    /// </summary>
     [Route("api/Categories")]
     [ApiController]
     public class CategoriesApiController : ControllerBase
@@ -15,6 +18,10 @@ namespace CMS.Backend.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Lấy danh sách tất cả danh mục bài viết tin tức
+        /// </summary>
+        /// <returns>Danh sách danh mục bài viết</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

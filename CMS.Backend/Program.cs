@@ -24,7 +24,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new()
+    {
+        Title = "ThaiCMS Web API",
+        Version = "v1",
+        Description = "Hệ thống API RESTful của LeTrongBaoCMS hỗ trợ phân trang và quản lý dữ liệu."
+    });
+
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
 
 // CORS — chỉ đăng ký 1 lần, gộp cả 2 policy
 builder.Services.AddCors(options =>

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Họ Tên: Lê Trọng Bảo
 MSSV: 2123110056
 VS: 1.0
@@ -9,6 +9,9 @@ using CMS.Data;
 
 namespace CMS.Backend.Controllers
 {
+    /// <summary>
+    /// API Quản lý danh mục sản phẩm thời trang
+    /// </summary>
     [Route("api/CategoriesProducts")]  // giữ route không đổi
     [ApiController]
     public class CategoriesProductsApiController : ControllerBase  
@@ -20,7 +23,10 @@ namespace CMS.Backend.Controllers
             _context = context;
         }
 
-        // ===== GET: api/CategoriesProducts =====
+        /// <summary>
+        /// Lấy danh sách tất cả danh mục sản phẩm thời trang
+        /// </summary>
+        /// <returns>Danh sách danh mục sản phẩm</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

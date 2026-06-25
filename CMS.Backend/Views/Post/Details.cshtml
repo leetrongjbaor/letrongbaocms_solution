@@ -1,8 +1,31 @@
 ﻿@model CMS.Data.Entities.Post
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<style>
+    /* Định dạng cho nội dung bài viết render từ CKEditor */
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 10px 0;
+    }
+
+    .post-content p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+    }
+
+    .post-content h1, .post-content h2, .post-content h3 {
+        margin-top: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+</style>
 
 <div class="container mt-4">
     <div class="card shadow-sm">
-        <img src="@Model.ImageUrl" class="card-img-top" style="max-height:300px; object-fit:cover;">
+        <img src="@Model.ImageUrl" class="card-img-top" style="max-height:300px; object-fit:cover;" alt="@Model.Title">
         <div class="card-body">
             <span class="badge bg-info text-dark mb-2">@Model.Category.Name</span>
             <h2 class="card-title text-primary">@Model.Title</h2>
@@ -10,8 +33,14 @@
                 Ngày đăng: @Model.CreatedDate.ToString("dd/MM/yyyy")
             </p>
             <hr>
-            <p class="card-text">@Model.Content</p>
-            <a asp-controller="Post" asp-action="Index" class="btn btn-secondary">← Quay lại</a>
+
+            @* QUAN TRỌNG: dùng Html.Raw để render đúng HTML do CKEditor tạo ra, *@
+            @* nếu dùng @Model.Content thì các thẻ <p>, <br>... sẽ hiện ra dưới dạng chữ thô *@
+            <div class="card-text post-content">
+                @Html.Raw(Model.Content)
+            </div>
+
+            <a asp-controller="Post" asp-action="Index" class="btn btn-secondary mt-3">← Quay lại</a>
         </div>
     </div>
 </div>

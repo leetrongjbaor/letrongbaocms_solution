@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import productService from '../services/productService';
+import { getImageUrl } from '../utils/imageHelper';
 
 const ProductDetail = ({ productId, onBack, onAddToCart }) => {
     const [product, setProduct] = useState(null);
@@ -9,7 +10,7 @@ const ProductDetail = ({ productId, onBack, onAddToCart }) => {
         const fetchProductDetail = async () => {
             try {
                 setLoading(true);
-                const data = await productService.getProductDetail(productId);
+                const data = await productService.getProductById(productId);
                 setProduct(data);
             } catch (error) {
                 console.error("Lỗi khi tải chi tiết sản phẩm:", error);
@@ -48,7 +49,7 @@ const ProductDetail = ({ productId, onBack, onAddToCart }) => {
     }
 
     const fallbackImage = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop";
-    const imageUrl = product.imageUrl && product.imageUrl.trim() !== "" ? product.imageUrl : fallbackImage;
+    const imageUrl = getImageUrl(product.imageUrl, fallbackImage);
     const inStock = product.stockQuantity > 0;
 
     return (

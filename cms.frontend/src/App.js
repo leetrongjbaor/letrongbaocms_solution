@@ -1,266 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import CategoryProductList from './components/CategoryProductList';
-import BlogCategoryList from './components/BlogCategoryList';
-import ProductList from './components/ProductList';
-import PostList from './components/PostList';
+import React from 'react';
+// Import các thành phần lõi của thư viện điều hướng đường dẫn
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+
+// 1. IMPORT CÁC COMPONENT TOÀN CỤC (LAYOUT CHUNG)
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ProductDetail from './components/ProductDetail';
-import PostDetail from './components/PostDetail';
-import './App.css';
+
+
+// 2. IMPORT CÁC TRANG CHỨC NĂNG (GIAO DIỆN CHÍNH)
+import Home from './pages/home/index';
+import Shop from './pages/shop/index';                  // Tự động nạp file pages/shop/index.jsx
+import ProductDetail from './pages/product-detail'; // Tự động nạp file pages/product-detail/index.jsx
+import Blog from './pages/blog/index';                  // Tự động nạp file pages/blog/index.jsx
+import BlogDetail from './pages/blog-detail/index';  // Nạp trang chi tiết bài viết cụ thể
+import Cart from './pages/cart/index';                  // Tự động nạp file pages/cart/index.jsx
+import Checkout from './pages/checkout/index';          // Tự động nạp file pages/checkout/index.jsx
+import About from './pages/about/index';                // Trang Giới thiệu GadgetHub.Store
+import Login from './pages/login/index';                // Trang Đăng nhập
+import Register from './pages/register/index';            // Trang Đăng ký
+
+
 
 function App() {
-    // Tab đang hoạt động: 'products' (Sản phẩm) hoặc 'posts' (Bài viết)
-    const [activeTab, setActiveTab] = useState('products');
-
-    // Điều hướng trang: 'home' | 'product-detail' | 'post-detail'
-    const [currentView, setCurrentView] = useState('home');
-    const [selectedDetailId, setSelectedDetailId] = useState(null);
-
-    // Lưu ID danh mục được chọn để lọc
-    const [selectedProductCategory, setSelectedProductCategory] = useState(null);
-    const [selectedBlogCategory, setSelectedBlogCategory] = useState(null);
-
-    // Số lượng sản phẩm trong giỏ hàng (mock)
-    const [cartCount, setCartCount] = useState(0);
-
-    // Tự động reset danh mục khi chuyển Tab
-    useEffect(() => {
-        // Quay lại trang danh sách chính khi đổi tab
-        setCurrentView('home');
-        setSelectedDetailId(null);
-
-        if (activeTab === 'products') {
-            setSelectedBlogCategory(null);
-        } else {
-            setSelectedProductCategory(null);
-        }
-    }, [activeTab]);
-
-    // Điều hướng xem chi tiết sản phẩm
-    const handleViewProductDetail = (id) => {
-        setSelectedDetailId(id);
-        setCurrentView('product-detail');
-    };
-
-    // Điều hướng xem chi tiết bài viết
-    const handleViewPostDetail = (id) => {
-        setSelectedDetailId(id);
-        setCurrentView('post-detail');
-    };
-
-    // Xử lý thêm vào giỏ hàng từ trang chi tiết
-    const handleAddToCart = (product) => {
-        setCartCount(prev => prev + 1);
-        alert(`Đã thêm "${product.name}" vào giỏ hàng thành công!`);
-    };
-
     return (
-        <div className="min-vh-100 d-flex flex-column bg-light">
-            <style>{`
-                /* Tab navigation */
-                .custom-tab-btn {
-                    font-weight: 600;
-                    font-size: 1.1rem;
-                    padding: 14px 28px;
-                    border: none;
-                    background: transparent;
-                    color: #6c757d;
-                    border-bottom: 3px solid transparent;
-                    transition: all 0.3s ease;
-                    outline: none !important;
-                }
-                .custom-tab-btn:hover {
-                    color: #212529;
-                }
-                .custom-tab-btn.active-blue {
-                    color: #0d6efd;
-                    border-bottom-color: #0d6efd;
-                }
-                .custom-tab-btn.active-cyan {
-                    color: #0dcaf0;
-                    border-bottom-color: #0dcaf0;
-                }
+        // Khởi tạo bộ định tuyến bao bọc toàn bộ ứng dụng Web
+        <Router>
+            <div className="d-flex flex-column min-vh-100 bg-light">
 
-                /* Hero Section */
-                .hero-section {
-                    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-                    color: #fff;
-                    padding: 80px 0;
-                    border-radius: 0 0 40px 40px;
-                    margin-bottom: 40px;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                    position: relative;
-                    overflow: hidden;
-                }
-                .hero-section::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    right: -20%;
-                    width: 500px;
-                    height: 500px;
-                    border-radius: 50%;
-                    background: radial-gradient(circle, rgba(13,110,253,0.15) 0%, rgba(0,0,0,0) 70%);
-                    pointer-events: none;
-                }
-                .hero-title {
-                    font-size: 3rem;
-                    font-weight: 800;
-                    letter-spacing: -1px;
-                    line-height: 1.2;
-                }
-                .hero-subtitle {
-                    font-size: 1.15rem;
-                    color: #94a3b8;
-                    font-weight: 400;
-                    max-width: 600px;
-                }
-            `}</style>
 
-            {/* Header / Navbar (Luôn hiển thị ở đầu trang) */}
-            <Header 
-                activeTab={activeTab} 
-                onTabChange={(tab) => {
-                    setActiveTab(tab);
-                    setCurrentView('home');
-                }} 
-                cartCount={cartCount} 
-                onCartClick={() => alert('Chức năng giỏ hàng đang được phát triển!')} 
-            />
 
-            {/* Banner giới thiệu thương hiệu (Chỉ xuất hiện ở trang chủ chính) */}
-            {currentView === 'home' && (
-                <div className="hero-section">
-                    <div className="container">
-                        <div className="row align-items-center">
-                            <div className="col-lg-8 text-center text-lg-start">
-                                <span className="badge bg-primary px-3 py-2 rounded-pill font-weight-bold text-uppercase mb-3" style={{ fontSize: '0.75rem', letterSpacing: '1px' }}>
-                                    Bộ sưu tập Xuân Hè 2026
-                                </span>
-                                <h1 className="hero-title mb-3">
-                                    Định Hình Phong Cách<br />Thời Trang Mới
-                                </h1>
-                                <p className="hero-subtitle mb-4">
-                                    Khám phá các mẫu đầm thời thượng, phụ kiện thiết kế tinh tế và những bài viết chia sẻ bí quyết làm đẹp từ các chuyên gia thời trang hàng đầu.
-                                </p>
-                                <div className="d-flex flex-wrap justify-content-center justify-content-lg-start" style={{ gap: '15px' }}>
-                                    <button
-                                        onClick={() => setActiveTab('products')}
-                                        className="btn btn-primary btn-lg rounded-pill px-4 py-3 font-weight-bold"
-                                        style={{ fontSize: '0.95rem', boxShadow: '0 8px 20px rgba(13,110,253,0.3)' }}
-                                    >
-                                        Mua sắm ngay <i className="fa-solid fa-bag-shopping ms-2"></i>
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('posts')}
-                                        className="btn btn-outline-light btn-lg rounded-pill px-4 py-3 font-weight-bold"
-                                        style={{ fontSize: '0.95rem' }}
-                                    >
-                                        Đọc bài viết mới nhất <i className="fa-solid fa-arrow-right ms-2"></i>
-                                    </button>
-                                </div>
+
+                {/* KHU VỰC NỘI DUNG ĐỘNG (Thay đổi ruột tùy theo URL trên thanh địa chỉ) */}
+                <main className="flex-grow-1">
+                    <Routes>
+                        {/* Cấu hình Trang chủ - Khớp hoàn toàn với địa chỉ "/home" */}
+                        <Route path="/" element={<Home />} />
+
+
+                        {/* Cấu hình Trang Cửa hàng - Địa chỉ "/shop" */}
+                        <Route path="/shop" element={<Shop />} />
+
+
+                        {/* Cấu hình Trang Chi tiết sản phẩm - Sử dụng tham số động ":id" */}
+                        {/* Ví dụ khi vào link: /product/5 -> useParams() sẽ lấy được id = 5 */}
+                        <Route path="/product/:id" element={<ProductDetail />} />
+
+
+                        {/* Cấu hình Trang Danh sách tin tức - Địa chỉ "/blog" */}
+                        <Route path="/blog" element={<Blog />} />
+
+
+                        {/* Cấu hình Trang Chi tiết bài viết - Địa chỉ "/blog/:id" */}
+                        <Route path="/blog/:id" element={<BlogDetail />} />
+
+
+                        {/* Cấu hình Trang Giỏ hàng cá nhân - Địa chỉ "/cart" */}
+                        <Route path="/cart" element={<Cart />} />
+
+
+                        {/* Cấu hình Trang Điền thông tin thanh toán - Địa chỉ "/checkout" */}
+                        <Route path="/checkout" element={<Checkout />} />
+
+
+                        {/* Cấu hình Trang Giới thiệu về GadgetHub.Store - Địa chỉ "/about" */}
+                        <Route path="/about" element={<About />} />
+
+                        {/* Cấu hình Trang Đăng nhập - Địa chỉ "/login" */}
+                        <Route path="/login" element={<Login />} />
+
+                        {/* Cấu hình Trang Đăng ký - Địa chỉ "/register" */}
+                        <Route path="/register" element={<Register />} />
+
+
+                        {/* XỬ LÝ KỊCH BẢN TRANG LỖI 404 (Khi sinh viên gõ sai URL) */}
+                        <Route path="*" element={
+                            <div className="container text-center py-5 my-5">
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/580/580185.png"
+                                    alt="404"
+                                    className="mb-4"
+                                    style={{ width: '100px', opacity: 0.6 }}
+                                />
+                                <h2 className="fw-bold text-secondary">404 - KHÔNG TÌM THẤY TRANG</h2>
+                                <p className="text-muted">Đường dẫn bạn truy cập không tồn tại trên hệ thống ThaiCMS.</p>
+                                <a href="/" className="btn btn-dark btn-sm mt-2">Quay lại Trang Chủ</a>
                             </div>
-                            <div className="col-lg-4 d-none d-lg-block text-end">
-                                <i className="fa-solid fa-wand-magic-sparkles text-primary" style={{ fontSize: '8rem', opacity: 0.15 }}></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+                        } />
+                    </Routes>
+                </main>
 
-            {/* Nội dung trang thay đổi linh hoạt theo currentView */}
-            <div className="container mb-5 flex-grow-1">
-                {currentView === 'product-detail' && (
-                    <ProductDetail 
-                        productId={selectedDetailId} 
-                        onBack={() => setCurrentView('home')} 
-                        onAddToCart={handleAddToCart}
-                    />
-                )}
 
-                {currentView === 'post-detail' && (
-                    <PostDetail 
-                        postId={selectedDetailId} 
-                        onBack={() => setCurrentView('home')} 
-                    />
-                )}
-
-                {currentView === 'home' && (
-                    <>
-                        {/* Tabs Switcher */}
-                        <div className="bg-white rounded shadow-sm border-0 d-flex justify-content-center mb-4 p-2" style={{ borderRadius: '16px' }}>
-                            <button
-                                className={`custom-tab-btn px-4 py-3 mx-2 ${activeTab === 'products' ? 'active-blue' : ''}`}
-                                onClick={() => setActiveTab('products')}
-                            >
-                                <i className="fa-solid fa-bag-shopping me-2"></i> Sản Phẩm Cửa Hàng
-                            </button>
-                            <button
-                                className={`custom-tab-btn px-4 py-3 mx-2 ${activeTab === 'posts' ? 'active-cyan' : ''}`}
-                                onClick={() => setActiveTab('posts')}
-                            >
-                                <i className="fa-solid fa-newspaper me-2"></i> Xu Hướng & Tin Tức
-                            </button>
-                        </div>
-
-                        {/* Layout Chia Cột */}
-                        <div className="row">
-                            {/* Cột trái: Thanh bên lọc danh mục */}
-                            <div className="col-lg-3 col-md-4 mb-4">
-                                {activeTab === 'products' ? (
-                                    <CategoryProductList
-                                        activeId={selectedProductCategory}
-                                        onSelectCategory={setSelectedProductCategory}
-                                    />
-                                ) : (
-                                    <BlogCategoryList
-                                        activeId={selectedBlogCategory}
-                                        onSelectCategory={setSelectedBlogCategory}
-                                    />
-                                )}
-                            </div>
-
-                            {/* Cột phải: Lưới danh sách sản phẩm hoặc bài viết */}
-                            <div className="col-lg-9 col-md-8">
-                                <div className="bg-white p-4 rounded shadow-sm" style={{ borderRadius: '16px', minHeight: '400px' }}>
-                                    {activeTab === 'products' ? (
-                                        <div>
-                                            <div className="d-flex align-items-center mb-4 border-bottom pb-3">
-                                                <h4 className="mb-0 font-weight-bold text-dark">
-                                                    <i className="fa-solid fa-store text-primary me-2"></i> Danh sách sản phẩm
-                                                </h4>
-                                            </div>
-                                            <ProductList
-                                                selectedCategoryId={selectedProductCategory}
-                                                onViewDetail={handleViewProductDetail}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <div className="d-flex align-items-center mb-4 border-bottom pb-3">
-                                                <h4 className="mb-0 font-weight-bold text-dark">
-                                                    <i className="fa-solid fa-newspaper text-info me-2"></i> Xu hướng thời trang
-                                                </h4>
-                                            </div>
-                                            <PostList
-                                                selectedCategoryId={selectedBlogCategory}
-                                                onViewDetail={handleViewPostDetail}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )}
             </div>
-
-            {/* Footer (Luôn hiển thị ở chân trang) */}
-            <Footer />
-            )}
-        </div>
+        </Router>
     );
 }
+
 
 export default App;

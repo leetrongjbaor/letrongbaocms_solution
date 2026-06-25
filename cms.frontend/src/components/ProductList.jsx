@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import productService from '../services/productService';
+import { getImageUrl } from '../utils/imageHelper';
 
 const ProductList = ({ selectedCategoryId, onViewDetail }) => {
     const [products, setProducts] = useState([]);
@@ -163,7 +164,7 @@ const ProductList = ({ selectedCategoryId, onViewDetail }) => {
                 ) : (
                     products.map((item) => {
                         const fallbackImage = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop";
-                        const imageUrl = item.imageUrl && item.imageUrl.trim() !== "" ? item.imageUrl : fallbackImage;
+                        const imageUrl = getImageUrl(item.imageUrl, fallbackImage);
                         const inStock = item.stockQuantity > 0;
 
                         return (

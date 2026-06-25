@@ -1,4 +1,4 @@
-﻿/*
+/*
 Họ Tên: Lê Trọng Bảo
 MSSV: 2123110056
 VS: 1.0
@@ -10,6 +10,9 @@ using CMS.Data.Entities;
 
 namespace CMS.Backend.Controllers
 {
+    /// <summary>
+    /// API Quản lý Đơn hàng và Đặt hàng
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
@@ -21,8 +24,10 @@ namespace CMS.Backend.Controllers
             _context = context;
         }
 
-        // ===== GET: api/orders =====
-        // Lấy toàn bộ danh sách đơn hàng
+        /// <summary>
+        /// Lấy toàn bộ danh sách đơn hàng trong hệ thống
+        /// </summary>
+        /// <returns>Danh sách đơn hàng tóm tắt</returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -41,8 +46,11 @@ namespace CMS.Backend.Controllers
             return Ok(orders);
         }
 
-        // ===== GET: api/orders/{id} =====
-        // Lấy chi tiết 1 đơn hàng theo ID
+        /// <summary>
+        /// Lấy thông tin chi tiết một đơn hàng theo ID
+        /// </summary>
+        /// <param name="id">Mã định danh đơn hàng</param>
+        /// <returns>Chi tiết đơn hàng</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {
@@ -56,8 +64,11 @@ namespace CMS.Backend.Controllers
             return Ok(order);
         }
 
-        // ===== POST: api/orders =====
-        // Tiếp nhận đơn đặt hàng từ giỏ hàng FrontEnd gửi lên
+        /// <summary>
+        /// Tiếp nhận và tạo mới đơn đặt hàng từ giỏ hàng Frontend
+        /// </summary>
+        /// <param name="input">Thông tin giỏ hàng và khách hàng đặt hàng</param>
+        /// <returns>Mã đơn hàng mới được tạo</returns>
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] OrderInputDTO input)
         {
