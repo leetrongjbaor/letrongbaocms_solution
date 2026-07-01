@@ -34,16 +34,16 @@ const BlogCategoryList = ({ activeId, onSelectCategory }) => {
                 /* Trạng thái Hover HOẶC trạng thái Active (Đang được chọn) */
                 .custom-category-item:hover,
                 .custom-category-item.is-active {
-                    background-color: #f0fcfe !important; /* Màu nền xanh lam siêu nhẹ */
-                    color: #0dcaf0 !important;
+                    background-color: rgba(229, 9, 20, 0.12) !important; /* Màu nền xanh lam siêu nhẹ */
+                    color: #ff2d38 !important;
                     padding-left: 1.75rem !important;
-                    border-left-color: #0dcaf0 !important;
+                    border-left-color: #e50914 !important;
                 }
                 
                 .custom-category-item:hover .fa-chevron-right,
                 .custom-category-item.is-active .fa-chevron-right {
                     transform: translateX(3px);
-                    color: #0dcaf0 !important;
+                    color: #ff2d38 !important;
                     opacity: 1 !important;
                 }
                 

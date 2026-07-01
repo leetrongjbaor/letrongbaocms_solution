@@ -1,5 +1,6 @@
 import React from 'react';
 import { getImageUrl } from '../utils/imageHelper';
+import { addToCart } from '../utils/cartHelper';
 
 // file thành phần component  nhận vào đối tượng 'item' từ file thành phần component  cha truyền xuống
 function ProductCard({ item }) {
@@ -61,8 +62,8 @@ function ProductCard({ item }) {
                     </a>
                     <button
                         className="btn btn-sm text-white font-weight-bold px-3 ml-2"
-                        style={{ borderRadius: '20px', backgroundColor: '#11CAA0', borderColor: '#11CAA0', flexGrow: 1 }}
-                        onClick={() => alert(`Đã thêm mẫu [${item.name}] vào giỏ hàng!`)}
+                        style={{ borderRadius: '20px', backgroundColor: '#e50914', borderColor: '#e50914', flexGrow: 1 }}
+                        onClick={() => addToCart(item)}
                     >
                         <i className="fas fa-cart-plus mr-1"></i> Mua ngay
                     </button>

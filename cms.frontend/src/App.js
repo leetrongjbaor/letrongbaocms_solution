@@ -19,6 +19,10 @@ import Checkout from './pages/checkout/index';          // Tự động nạp fi
 import About from './pages/about/index';                // Trang Giới thiệu GadgetHub.Store
 import Login from './pages/login/index';                // Trang Đăng nhập
 import Register from './pages/register/index';            // Trang Đăng ký
+import Profile from './pages/profile/index';                // Trang Hồ sơ cá nhân
+import OrderHistory from './pages/order-history/index';    // Trang Lịch sử đơn hàng
+import BannerManagement from './pages/banner-management';
+import SearchPage from './pages/search';
 
 
 
@@ -40,6 +44,8 @@ function App() {
 
                         {/* Cấu hình Trang Cửa hàng - Địa chỉ "/shop" */}
                         <Route path="/shop" element={<Shop />} />
+
+                        <Route path="/search" element={<SearchPage />} />
 
 
                         {/* Cấu hình Trang Chi tiết sản phẩm - Sử dụng tham số động ":id" */}
@@ -71,6 +77,14 @@ function App() {
 
                         {/* Cấu hình Trang Đăng ký - Địa chỉ "/register" */}
                         <Route path="/register" element={<Register />} />
+
+                        {/* Cấu hình Trang Hồ sơ cá nhân - Địa chỉ "/profile" */}
+                        <Route path="/profile" element={<Profile />} />
+
+                        {/* Cấu hình Trang Lịch sử đơn hàng - Địa chỉ "/order-history" */}
+                        <Route path="/order-history" element={<OrderHistory />} />
+
+                        <Route path="/banner-management" element={<BannerManagement />} />
 
 
                         {/* XỬ LÝ KỊCH BẢN TRANG LỖI 404 (Khi sinh viên gõ sai URL) */}

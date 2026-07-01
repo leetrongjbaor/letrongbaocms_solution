@@ -14,10 +14,12 @@ namespace CMS.Backend.Controllers
     public class CategoriesProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public CategoriesProductsController(ApplicationDbContext context)
+        public CategoriesProductsController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // ===== INDEX =====
@@ -35,10 +37,15 @@ namespace CMS.Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CategoryProduct model)
+        public async Task<IActionResult> Create(CategoryProduct model, IFormFile? ImageFile)
         {
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                model.ImageUrl = await SaveCategoryImage(ImageFile);
+            }
+
             _context.CategoriesProducts.Add(model);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -52,10 +59,25 @@ namespace CMS.Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(CategoryProduct model)
+        public async Task<IActionResult> Edit(CategoryProduct model, IFormFile? ImageFile)
         {
-            _context.CategoriesProducts.Update(model);
-            _context.SaveChanges();
+            var existing = await _context.CategoriesProducts.FindAsync(model.Id);
+            if (existing == null) return NotFound();
+
+            existing.Name = model.Name;
+            existing.Description = model.Description;
+
+            if (!string.IsNullOrWhiteSpace(model.ImageUrl))
+            {
+                existing.ImageUrl = model.ImageUrl;
+            }
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                existing.ImageUrl = await SaveCategoryImage(ImageFile);
+            }
+
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -69,6 +91,21 @@ namespace CMS.Backend.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        private async Task<string> SaveCategoryImage(IFormFile imageFile)
+        {
+            var uploadFolder = Path.Combine(_environment.WebRootPath, "uploads", "categories");
+            Directory.CreateDirectory(uploadFolder);
+
+            var extension = Path.GetExtension(imageFile.FileName);
+            var fileName = $"{Guid.NewGuid():N}{extension}";
+            var filePath = Path.Combine(uploadFolder, fileName);
+
+            await using var stream = new FileStream(filePath, FileMode.Create);
+            await imageFile.CopyToAsync(stream);
+
+            return $"/uploads/categories/{fileName}";
         }
     }
 }

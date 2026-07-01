@@ -1,0 +1,205 @@
+.banner-admin {
+    background: #050505;
+    padding: 32px 0 56px;
+    color: #f7f7f7;
+}
+
+.banner-admin__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.banner-admin__head h1 {
+    margin: 0 0 6px;
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.banner-admin__head p {
+    margin: 0;
+    color: #b8b8b8;
+}
+
+.banner-admin__head span {
+    background: #e50914;
+    color: #fff;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.banner-admin__grid {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 22px;
+}
+
+.banner-form,
+.banner-card,
+.banner-empty {
+    background: #111;
+    border: 1px solid rgba(229, 9, 20, 0.28);
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.banner-form {
+    padding: 20px;
+}
+
+.banner-form h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.banner-form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f7f7f7;
+}
+
+.banner-form input {
+    width: 100%;
+    border: 1px solid rgba(229, 9, 20, 0.28);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.banner-file-name {
+    display: block;
+    margin-top: 6px;
+    color: #ff2d38;
+    font-weight: 700;
+}
+
+.banner-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.banner-check {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+.banner-check input {
+    width: auto;
+}
+
+.banner-form__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.banner-form button,
+.banner-card button {
+    border: 0;
+    border-radius: 8px;
+    background: #e50914;
+    color: #fff;
+    padding: 9px 14px;
+    font-weight: 700;
+}
+
+.banner-form button.secondary {
+    background: #333;
+}
+
+.banner-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.banner-empty {
+    padding: 28px;
+    text-align: center;
+    color: #b8b8b8;
+}
+
+.banner-card {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 16px;
+    padding: 14px;
+}
+
+.banner-card img {
+    width: 190px;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #1a1a1a;
+}
+
+.banner-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.banner-card h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.banner-card p {
+    margin: 6px 0;
+    color: #b8b8b8;
+}
+
+.banner-card small {
+    color: #b8b8b8;
+}
+
+.banner-card span {
+    height: max-content;
+    border-radius: 999px;
+    background: #272727;
+    color: #ddd;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.banner-card span.active {
+    background: rgba(229, 9, 20, 0.18);
+    color: #ff2d38;
+}
+
+.banner-card__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.banner-card button.danger {
+    background: #dc3545;
+}
+
+@media (max-width: 900px) {
+    .banner-admin__grid,
+    .banner-card {
+        grid-template-columns: 1fr;
+    }
+
+    .banner-card img {
+        width: 100%;
+        height: 180px;
+    }
+}

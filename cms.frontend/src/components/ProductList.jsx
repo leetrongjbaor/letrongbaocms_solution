@@ -89,19 +89,19 @@ const ProductList = ({ selectedCategoryId, onViewDetail }) => {
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
                     background-color: rgba(255, 255, 255, 0.95) !important;
-                    color: #0f172a !important;
+                    color: #070707 !important;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
                 }
                 .product-price {
                     font-size: 1.15rem;
                     font-weight: 700;
-                    color: #0f172a;
+                    color: #070707;
                     letter-spacing: -0.2px;
                 }
                 .product-title {
                     font-size: 0.95rem;
                     font-weight: 500;
-                    color: #1e293b;
+                    color: #141414;
                     line-height: 1.4;
                     height: 2.8em;
                     overflow: hidden;
@@ -118,7 +118,7 @@ const ProductList = ({ selectedCategoryId, onViewDetail }) => {
                     align-items: center;
                     font-size: 0.75rem;
                     font-weight: 500;
-                    color: #64748b;
+                    color: #8f8f8f;
                     background: #f8fafc;
                     padding: 2px 8px;
                     border-radius: 20px;
@@ -129,13 +129,13 @@ const ProductList = ({ selectedCategoryId, onViewDetail }) => {
                     border-radius: 50%;
                     margin-right: 6px;
                 }
-                .stock-in { background-color: #10b981; }
+                .stock-in { background-color: #ff2d38; }
                 .stock-out { background-color: #ef4444; }
                 
                 .product-detail-btn {
                     font-size: 0.8rem;
                     font-weight: 600;
-                    background-color: #0f172a !important; /* Màu đen sang trọng thay vì màu xanh cơ bản */
+                    background-color: #070707 !important; /* Màu đen sang trọng thay vì màu xanh cơ bản */
                     border: none !important;
                     padding: 8px 16px !important;
                     transition: all 0.2s ease;

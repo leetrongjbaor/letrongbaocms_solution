@@ -141,6 +141,42 @@
             color: #fff;
         }
 
+        /* Bootstrap Icons CDN fallback */
+        i[class*="bi-"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 1em;
+            font-style: normal;
+            line-height: 1;
+        }
+
+        i[class*="bi-"]::before {
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+        }
+
+        i.bi-grid-3x3-gap-fill::before { content: "▦"; }
+        i.bi-house-door::before { content: "⌂"; }
+        i.bi-folder::before { content: "▱"; }
+        i.bi-file-earmark-text::before { content: "▧"; }
+        i.bi-images::before { content: "▣"; }
+        i.bi-person::before,
+        i.bi-person-circle::before,
+        i.bi-people::before { content: "👤"; }
+        i.bi-tag::before { content: "#"; }
+        i.bi-bag::before { content: "▰"; }
+        i.bi-receipt::before { content: "▤"; }
+        i.bi-list-check::before { content: "☑"; }
+        i.bi-box-arrow-right::before,
+        i.bi-box-arrow-in-right::before { content: "⇥"; }
+        i.bi-chevron-right::before { content: "›"; }
+        i.bi-plus-circle::before { content: "+"; }
+        i.bi-pencil-square::before { content: "✎"; }
+        i.bi-arrow-left::before { content: "‹"; }
+        i.bi-cloud-arrow-up::before { content: "⇧"; }
+        i.bi-file-earmark-plus::before { content: "+"; }
+
         /* ===== PAGE BODY ===== */
         .page-body {
             padding: 24px;
@@ -197,6 +233,11 @@
             <li>
                 <a asp-controller="Post" asp-action="Index">
                     <i class="bi bi-file-earmark-text"></i> Bài viết
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Banner" asp-action="Index">
+                    <i class="bi bi-images"></i> Banner
                 </a>
             </li>
 

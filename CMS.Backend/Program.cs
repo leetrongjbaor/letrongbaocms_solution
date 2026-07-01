@@ -5,7 +5,11 @@ using CMS.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== 1. ĐĂNG KÝ SERVICES =====
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 // DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -72,13 +76,17 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();   // Chỉ gọi 1 lần
 app.UseRouting();
 
-// CORS phải nằm sau UseRouting, trước UseAuthentication
-// Dùng AllowAll trong môi trường phát triển
+// CORS phải nằm TRƯỚC UseHttpsRedirection để tránh lỗi chặn kết nối từ Frontend
 app.UseCors("AllowAll");
+
+// Chỉ redirect HTTPS khi chạy Production, tránh lỗi CORS trong môi trường Dev
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthentication();  // Authentication trước
 app.UseAuthorization();   // Authorization sau

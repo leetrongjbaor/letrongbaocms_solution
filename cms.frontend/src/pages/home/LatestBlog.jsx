@@ -45,18 +45,18 @@ function LatestBlog() { // chỉ lấy 3 tin
 
 
     return (
-        <section className="latest-blog-section py-5" style={{ backgroundColor: '#fdfbf7' }}>
+        <section className="latest-blog-section py-5" style={{ backgroundColor: '#050505' }}>
             <div className="container">
 
 
                 <div className="section-heading mb-4 text-center">
-                    <h3 className="font-weight-bold text-uppercase" style={{ color: '#005088' }}>
+                    <h3 className="font-weight-bold text-uppercase" style={{ color: '#fff' }}>
                         Xu Hướng Thời Trang
                     </h3>
                     <p className="text-muted lead" style={{ fontSize: '15px' }}>
                         Cập nhật những mẹo phối đồ và tin tức phong cách mới nhất cùng LeTrongBaoCMS
                     </p>
-                    <div className="mx-auto" style={{ width: '60px', height: '3px', backgroundColor: '#11CAA0' }}></div>
+                    <div className="mx-auto" style={{ width: '60px', height: '3px', backgroundColor: '#e50914' }}></div>
                 </div>
 
 

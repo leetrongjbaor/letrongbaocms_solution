@@ -353,15 +353,15 @@ function About() {
                     font-family: 'Inter', sans-serif;
                 }
                 .about-section--dark {
-                    background: #0f172a;
+                    background: #070707;
                     color: #fff;
                 }
                 .about-section--light {
                     background: #f8fafc;
-                    color: #0f172a;
+                    color: #070707;
                 }
                 .about-section--gradient {
-                    background: linear-gradient(135deg, #1e293b, #0f172a);
+                    background: linear-gradient(135deg, #141414, #070707);
                     color: #fff;
                 }
                 .about-section__eyebrow {
@@ -369,7 +369,7 @@ function About() {
                     font-weight: 700;
                     text-transform: uppercase;
                     letter-spacing: 0.15em;
-                    color: #6366f1;
+                    color: #e50914;
                     margin-bottom: 12px;
                 }
                 .about-section__title {
@@ -384,7 +384,7 @@ function About() {
                 .about-section__text {
                     font-size: 15px;
                     line-height: 1.8;
-                    color: #94a3b8;
+                    color: #b8b8b8;
                     max-width: 620px;
                 }
                 .about-section--light .about-section__text {
@@ -414,8 +414,8 @@ function About() {
                 }
                 .value-card:hover {
                     transform: translateY(-6px);
-                    box-shadow: 0 20px 40px rgba(99,102,241,0.12);
-                    border-color: rgba(99,102,241,0.3);
+                    box-shadow: 0 20px 40px rgba(229,9,20,0.14);
+                    border-color: rgba(229,9,20,0.28);
                 }
                 .value-card__icon {
                     width: 56px;
@@ -426,11 +426,11 @@ function About() {
                     justify-content: center;
                     font-size: 24px;
                     margin-bottom: 20px;
-                    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
-                    color: #6366f1;
+                    background: linear-gradient(135deg, rgba(229,9,20,0.18), rgba(139,92,246,0.15));
+                    color: #e50914;
                 }
                 .about-section--light .value-card__icon {
-                    background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));
+                    background: linear-gradient(135deg, rgba(229,9,20,0.18), rgba(139,92,246,0.1));
                 }
                 .value-card__title {
                     font-size: 18px;
@@ -439,15 +439,15 @@ function About() {
                     color: #fff;
                 }
                 .about-section--light .value-card__title {
-                    color: #0f172a;
+                    color: #070707;
                 }
                 .value-card__desc {
                     font-size: 14px;
                     line-height: 1.7;
-                    color: #94a3b8;
+                    color: #b8b8b8;
                 }
                 .about-section--light .value-card__desc {
-                    color: #64748b;
+                    color: #8f8f8f;
                 }
 
                 /* Stats bar */
@@ -475,7 +475,7 @@ function About() {
                     font-weight: 400;
                     line-height: 1;
                     margin-bottom: 8px;
-                    background: linear-gradient(135deg, #6366f1, #a78bfa);
+                    background: linear-gradient(135deg, #e50914, #a78bfa);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
@@ -485,7 +485,7 @@ function About() {
                     font-weight: 600;
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
-                    color: #64748b;
+                    color: #8f8f8f;
                 }
 
                 /* Timeline */
@@ -501,7 +501,7 @@ function About() {
                     top: 0;
                     bottom: 0;
                     width: 2px;
-                    background: linear-gradient(to bottom, #6366f1, rgba(99,102,241,0.1));
+                    background: linear-gradient(to bottom, #e50914, rgba(229,9,20,0.18));
                 }
                 .timeline-item {
                     position: relative;
@@ -515,13 +515,13 @@ function About() {
                     width: 12px;
                     height: 12px;
                     border-radius: 50%;
-                    background: #6366f1;
-                    box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
+                    background: #e50914;
+                    box-shadow: 0 0 0 4px rgba(229,9,20,0.22);
                 }
                 .timeline-item__year {
                     font-family: 'Anton', sans-serif;
                     font-size: 20px;
-                    color: #6366f1;
+                    color: #e50914;
                     margin-bottom: 6px;
                 }
                 .timeline-item__title {
@@ -531,7 +531,7 @@ function About() {
                 }
                 .timeline-item__desc {
                     font-size: 14px;
-                    color: #64748b;
+                    color: #8f8f8f;
                     line-height: 1.6;
                 }
 
@@ -539,7 +539,7 @@ function About() {
                 .about-cta {
                     text-align: center;
                     padding: 80px 24px;
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     position: relative;
                     overflow: hidden;
                 }
@@ -580,7 +580,7 @@ function About() {
                     padding: 16px 36px;
                     border-radius: 14px;
                     background: #fff;
-                    color: #6366f1;
+                    color: #e50914;
                     font-size: 15px;
                     font-weight: 700;
                     text-decoration: none;
@@ -784,7 +784,7 @@ function About() {
                     <div className="row">
                         <div className="col-lg-5 mb-5 mb-lg-0">
                             <div className="about-section__eyebrow">Hành trình</div>
-                            <h2 className="about-section__title" style={{ color: '#0f172a' }}>
+                            <h2 className="about-section__title" style={{ color: '#070707' }}>
                                 Từ đam mê<br/>đến thương hiệu
                             </h2>
                             <p className="about-section__text">
@@ -796,7 +796,7 @@ function About() {
                             <div className="timeline">
                                 <div className="timeline-item">
                                     <div className="timeline-item__year">2021</div>
-                                    <h4 className="timeline-item__title" style={{ color: '#0f172a' }}>Khởi đầu đam mê</h4>
+                                    <h4 className="timeline-item__title" style={{ color: '#070707' }}>Khởi đầu đam mê</h4>
                                     <p className="timeline-item__desc">
                                         Ra đời từ một fanpage nhỏ chia sẻ review gaming gear,
                                         GadgetHub bắt đầu bán những sản phẩm đầu tiên qua mạng xã hội.
@@ -804,7 +804,7 @@ function About() {
                                 </div>
                                 <div className="timeline-item">
                                     <div className="timeline-item__year">2022</div>
-                                    <h4 className="timeline-item__title" style={{ color: '#0f172a' }}>Mở rộng thương hiệu</h4>
+                                    <h4 className="timeline-item__title" style={{ color: '#070707' }}>Mở rộng thương hiệu</h4>
                                     <p className="timeline-item__desc">
                                         Ra mắt website GadgetHub.Store chính thức, mở rộng danh mục sản phẩm lên hơn 100 SKU
                                         từ các thương hiệu Logitech, Razer, SteelSeries, HyperX.
@@ -812,7 +812,7 @@ function About() {
                                 </div>
                                 <div className="timeline-item">
                                     <div className="timeline-item__year">2023</div>
-                                    <h4 className="timeline-item__title" style={{ color: '#0f172a' }}>Cộng đồng lớn mạnh</h4>
+                                    <h4 className="timeline-item__title" style={{ color: '#070707' }}>Cộng đồng lớn mạnh</h4>
                                     <p className="timeline-item__desc">
                                         Đạt mốc 5,000 khách hàng thân thiết. Tổ chức các buổi offline gaming community,
                                         trở thành đối tác chính thức của nhiều thương hiệu quốc tế.
@@ -820,7 +820,7 @@ function About() {
                                 </div>
                                 <div className="timeline-item">
                                     <div className="timeline-item__year">2024</div>
-                                    <h4 className="timeline-item__title" style={{ color: '#0f172a' }}>Hướng tới tương lai</h4>
+                                    <h4 className="timeline-item__title" style={{ color: '#070707' }}>Hướng tới tương lai</h4>
                                     <p className="timeline-item__desc">
                                         Kế hoạch mở showroom trải nghiệm tại TP.HCM, ra mắt dòng sản phẩm tự thiết kế
                                         và hệ thống loyalty cho game thủ.

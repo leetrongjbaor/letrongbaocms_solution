@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from 'react';
-// Import dịch vụ gọi API danh mục sản phẩm đã thiết lập ở Buổi 7
+import React, { useEffect, useState } from 'react';
 import categoryProductService from '../../services/categoryProductService';
+import { getImageUrl } from '../../utils/imageHelper';
+
+const categoryFallbackImages = [
+    'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=600&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=600&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=600&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=600&auto=format&fit=crop',
+];
 
 function CategoryMenu({ activeCategoryId, onCategorySelect }) {
-    // 1. Khai báo State để lưu mảng danh mục sản phẩm từ SQL Server đổ về
     const [categories, setCategories] = useState([]);
-
-    // 2. Khai báo State quản lý trạng thái Loading dữ liệu mạng
     const [loading, setLoading] = useState(true);
 
-    // 3. Gọi API ngay khi file thành phần component Tầng 3 được nạp lên trang chủ
     useEffect(() => {
         const fetchMenuCategories = async () => {
             try {
                 setLoading(true);
-                // Gọi API thực tế: GET https://localhost:xxxx/api/CategoriesProducts
                 const data = await categoryProductService.getAllCategoryProducts();
-                setCategories(data);
+                setCategories(data || []);
             } catch (error) {
-                console.error("Lỗi khi kéo danh mục sản phẩm từ Backend:", error);
+                console.error('Không thể tải danh mục sản phẩm:', error);
             } finally {
                 setLoading(false);
             }
@@ -27,72 +31,69 @@ function CategoryMenu({ activeCategoryId, onCategorySelect }) {
         fetchMenuCategories();
     }, []);
 
-    // 4. Hàm xử lý khi khách hàng click chọn một danh mục thời trang cụ thể
     const handleCategoryClick = (id) => {
-        if (onCategorySelect) {
-            onCategorySelect(id);
-        }
-        console.log(`Lọc sản phẩm cho danh mục có ID: ${id}`);
+        if (onCategorySelect) onCategorySelect(id);
     };
 
-    // Kịch bản giao diện tạm thời trong lúc hệ thống đang tải dữ liệu mạng
     if (loading) {
         return (
-            <div className="container my-3 text-center">
-                <div className="spinner-border spinner-border-sm text-info" role="status"></div>
-                <span className="ml-2 text-muted" style={{ fontSize: '14px' }}>Đang nạp menu phân loại...</span>
-            </div>
+            <section className="home-category-showcase">
+                <div className="container">
+                    <div className="category-showcase-loading">
+                        <span></span>
+                        <p>Đang tải danh mục...</p>
+                    </div>
+                </div>
+            </section>
         );
     }
 
     return (
-        <section id="category-menu-section" className="category-menu-wrapper my-4">
+        <section id="category-menu-section" className="home-category-showcase">
             <div className="container">
-                <div className="card shadow-sm border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                    <div className="card-body p-2 bg-white">
-
-                        {/* Sử dụng cấu trúc Flexbox Nav của Bootstrap để dàn ngang menu */}
-                        <ul className="nav nav-pills nav-fill flex-column flex-sm-row">
-
-                            {/* Nút mặc định: Xem tất cả sản phẩm */}
-                            <li className="nav-item m-1">
-                                <button
-                                    className={`nav-link w-100 font-weight-bold border-0 text-uppercase py-3 ${activeCategoryId === null ? 'active' : 'text-secondary bg-transparent'}`}
-                                    style={{
-                                        borderRadius: '10px',
-                                        fontSize: '14px',
-                                        backgroundColor: activeCategoryId === null ? '#005088' : 'transparent',
-                                        transition: '0.3s'
-                                    }}
-                                    onClick={() => handleCategoryClick(null)}
-                                >
-                                    <i className="fas fa-th-large mr-2"></i> Tất cả sản phẩm
-                                </button>
-                            </li>
-
-                            {/* VÒNG LẶP ĐỘNG: Duyệt mảng categories từ API Backend sinh ra các nút menu */}
-                            {categories.map((cat) => (
-                                <li className="nav-item m-1" key={cat.id}>
-                                    <button
-                                        className={`nav-link w-100 font-weight-bold border-0 text-uppercase py-3 ${activeCategoryId === cat.id ? 'active' : 'text-secondary bg-transparent'}`}
-                                        style={{
-                                            borderRadius: '10px',
-                                            fontSize: '14px',
-                                            backgroundColor: activeCategoryId === cat.id ? '#11CAA0' : 'transparent',
-                                            color: activeCategoryId === cat.id ? '#fff' : '#6c757d',
-                                            transition: '0.3s'
-                                        }}
-                                        onClick={() => handleCategoryClick(cat.id)}
-                                    >
-                                        {/* Hiển thị tên danh mục thật từ SQL Server */}
-                                        {cat.name}
-                                    </button>
-                                </li>
-                            ))}
-
-                        </ul>
-
+                <div className="category-showcase-head">
+                    <div>
+                        <p>Danh Mục</p>
                     </div>
+                    <span>Click để lọc nhanh sản phẩm</span>
+                </div>
+
+                <div className="category-showcase-grid">
+                    <button
+                        type="button"
+                        className={`category-tile ${activeCategoryId === null ? 'active' : ''}`}
+                        onClick={() => handleCategoryClick(null)}
+                    >
+                        <span className="category-tile__image category-tile__all">
+                            <i className="fas fa-th-large"></i>
+                        </span>
+                        <strong>Tất cả</strong>
+                        <small>Xem toàn bộ sản phẩm</small>
+                    </button>
+
+                    {categories.map((cat, index) => {
+                        const fallback = categoryFallbackImages[index % categoryFallbackImages.length];
+                        const imageUrl = getImageUrl(cat.imageUrl || cat.thumbnailUrl || cat.avatarUrl, fallback);
+
+                        return (
+                            <button
+                                type="button"
+                                className={`category-tile ${activeCategoryId === cat.id ? 'active' : ''}`}
+                                key={cat.id}
+                                onClick={() => handleCategoryClick(cat.id)}
+                            >
+                                <span className="category-tile__image">
+                                    <img
+                                        src={imageUrl}
+                                        alt={cat.name}
+                                        onError={(event) => { event.currentTarget.src = fallback; }}
+                                    />
+                                </span>
+                                <strong>{cat.name}</strong>
+                                <small>Chọn danh mục</small>
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
         </section>

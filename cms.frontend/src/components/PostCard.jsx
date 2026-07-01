@@ -28,7 +28,7 @@ function PostCard({ post }) {
             {/* 2. Nội dung tóm tắt bài viết */}
             <div className="card-body p-4 d-flex flex-column">
                 {/* Ngày đăng bài viết */}
-                <small className="text-uppercase font-weight-bold text-muted mb-2 d-block" style={{ fontSize: '12px', color: '#11CAA0' }}>
+                <small className="text-uppercase font-weight-bold text-muted mb-2 d-block" style={{ fontSize: '12px', color: '#ff2d38' }}>
                     <i className="far fa-calendar-alt mr-1"></i>
                     {post.createdDate ? new Date(post.createdDate).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
                 </small>
@@ -37,8 +37,8 @@ function PostCard({ post }) {
 
 
                 {/* Tiêu đề bài viết - Giới hạn tối đa 2 dòng để không bị lệch phom */}
-                <h5 className="card-title font-weight-bold mb-2" style={{ color: '#005088', fontSize: '18px', lineHeight: '1.4', minHeight: '50px' }}>
-                    <a href={`/blog/${post.id}`} className="text-decoration-none text-dark-hover" style={{ color: '#005088' }}>
+                <h5 className="card-title font-weight-bold mb-2" style={{ color: '#fff', fontSize: '18px', lineHeight: '1.4', minHeight: '50px' }}>
+                    <a href={`/blog/${post.id}`} className="text-decoration-none text-dark-hover" style={{ color: '#fff' }}>
                         {post.title}
                     </a>
                 </h5>
@@ -59,9 +59,9 @@ function PostCard({ post }) {
                     <a
                         href={`/blog/${post.id}`}
                         className="font-weight-bold text-decoration-none d-inline-flex align-items-center"
-                        style={{ color: '#11CAA0', fontSize: '14px', transition: '0.3s' }}
-                        onMouseOver={(e) => e.target.style.color = '#005088'}
-                        onMouseOut={(e) => e.target.style.color = '#11CAA0'}
+                        style={{ color: '#ff2d38', fontSize: '14px', transition: '0.3s' }}
+                        onMouseOver={(e) => e.target.style.color = '#e50914'}
+                        onMouseOut={(e) => e.target.style.color = '#ff2d38'}
                     >
                         Đọc bài viết <i className="fas fa-long-arrow-alt-right ml-2"></i>
                     </a>

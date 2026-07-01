@@ -24,9 +24,23 @@ namespace CMS.Backend.Controllers
         {
             var data = _context.Orders
                        .Include(o => o.Customer)
+                       .Include(o => o.OrderDetails)
+                           .ThenInclude(od => od.Product)
                        .OrderByDescending(o => o.Id)
                        .ToList();
             return View(data);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var order = _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .FirstOrDefault(o => o.Id == id);
+
+            if (order == null) return NotFound();
+            return View(order);
         }
 
         // ===== CREATE =====
@@ -68,9 +82,15 @@ namespace CMS.Backend.Controllers
         // ===== DELETE =====
         public IActionResult Delete(int id)
         {
-            var order = _context.Orders.Find(id);
+            var order = _context.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefault(o => o.Id == id);
             if (order != null)
             {
+                if (order.OrderDetails != null && order.OrderDetails.Any())
+                {
+                    _context.OrderDetails.RemoveRange(order.OrderDetails);
+                }
                 _context.Orders.Remove(order);
                 _context.SaveChanges();
             }

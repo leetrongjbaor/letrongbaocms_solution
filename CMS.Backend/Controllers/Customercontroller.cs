@@ -1,4 +1,4 @@
-﻿/*
+/*
 Họ Tên: Lê Trọng Bảo
 MSSV: 2123110056
 VS: 1.0
@@ -7,6 +7,7 @@ using CMS.Data;
 using CMS.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using CMS.Backend.Helpers;
 
 namespace CMS.Backend.Controllers
 {
@@ -37,6 +38,10 @@ namespace CMS.Backend.Controllers
         [HttpPost]
         public IActionResult Create(Customer model)
         {
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            {
+                model.Password = PasswordHelper.HashPassword(model.Password);
+            }
             _context.Customers.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -54,7 +59,23 @@ namespace CMS.Backend.Controllers
         [HttpPost]
         public IActionResult Edit(Customer model)
         {
-            _context.Customers.Update(model);
+            var existingCustomer = _context.Customers.Find(model.Id);
+            if (existingCustomer == null)
+            {
+                return NotFound();
+            }
+
+            existingCustomer.FullName = model.FullName;
+            existingCustomer.Email = model.Email;
+            existingCustomer.Phone = model.Phone;
+            existingCustomer.Address = model.Address;
+
+            // Nếu người dùng nhập mật khẩu mới thì băm và cập nhật, ngược lại giữ nguyên mật khẩu cũ
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            {
+                existingCustomer.Password = PasswordHelper.HashPassword(model.Password);
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

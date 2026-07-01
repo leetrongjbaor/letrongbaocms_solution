@@ -1,13 +1,13 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    App.css - Fashion Boutique Styling
    ========================================================================== */
 
-/* Tùy chỉnh thanh điều hướng và giao diện cao cấp */
+/* T�y ch?nh thanh �i?u h�?ng v� giao di?n cao c?p */
 .navbar-brand-style {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+    background: linear-gradient(45deg, #e50914, #ff2d38);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -19,13 +19,13 @@
 }
 
     .nav-link-custom:hover {
-        color: #0d6efd;
+        color: #ff2d38;
         text-decoration: none;
     }
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(135deg, #141414 0%, #070707 100%);
     color: #fff;
     padding: 80px 0;
     border-radius: 0 0 40px 40px;
@@ -43,7 +43,7 @@
         width: 500px;
         height: 500px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(13, 110, 253, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+        background: radial-gradient(circle, rgba(229, 9, 20, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
         pointer-events: none;
     }
 
@@ -56,7 +56,7 @@
 
 .hero-subtitle {
     font-size: 1.15rem;
-    color: #94a3b8;
+    color: #b8b8b8;
     font-weight: 400;
     max-width: 600px;
 }
@@ -79,13 +79,13 @@
     }
 
     .custom-tab-btn.active-blue {
-        color: #0d6efd;
-        border-bottom-color: #0d6efd;
+        color: #ff2d38;
+        border-bottom-color: #e50914;
     }
 
     .custom-tab-btn.active-cyan {
-        color: #0dcaf0;
-        border-bottom-color: #0dcaf0;
+        color: #ff2d38;
+        border-bottom-color: #e50914;
     }
 
 /* Custom Modal */
@@ -126,7 +126,7 @@
     border-radius: 50%;
     background: #f1f5f9;
     border: none;
-    color: #64748b;
+    color: #8f8f8f;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
@@ -138,7 +138,7 @@
 
     .modal-close-btn:hover {
         background: #e2e8f0;
-        color: #0f172a;
+        color: #070707;
         transform: rotate(90deg);
     }
 

@@ -57,8 +57,8 @@ const PostList = ({ selectedCategoryId, onViewDetail }) => {
                 /* Hiệu ứng di chuột vào bài viết */
                 .post-card:hover {
                     transform: translateY(-5px);
-                    box-shadow: 0 10px 25px rgba(13, 202, 240, 0.08) !important;
-                    border-color: rgba(13, 202, 240, 0.3) !important;
+                    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.16) !important;
+                    border-color: rgba(229, 9, 20, 0.38) !important;
                 }
                 
                 /* Định dạng link tiêu đề bài viết */
@@ -71,7 +71,7 @@ const PostList = ({ selectedCategoryId, onViewDetail }) => {
                 }
                 
                 .post-title-link:hover {
-                    color: #0dcaf0; /* Màu text-info của Bootstrap */
+                    color: #ff2d38; /* Màu text-info của Bootstrap */
                     text-decoration: none;
                 }
                 
@@ -121,8 +121,8 @@ const PostList = ({ selectedCategoryId, onViewDetail }) => {
                 .post-category-tag {
                     font-size: 0.75rem;
                     font-weight: 600;
-                    color: #0dcaf0;
-                    background-color: rgba(13, 202, 240, 0.1);
+                    color: #ff2d38;
+                    background-color: rgba(229, 9, 20, 0.14);
                     padding: 4px 10px;
                     border-radius: 20px;
                 }

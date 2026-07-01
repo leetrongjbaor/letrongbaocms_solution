@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 // IMPORT ĐỂ 6 TẦNG THEO ĐÚNG THỨ TỰ HƯỚNG DẪN
 import Header from '../../components/Header';
 import HeroBanner from './HeroBanner';
 import CategoryMenu from './CategoryMenu';
+import HotProducts from './HotProducts';
 import ProductGrid from './ProductGrid';
 import LatestBlog from './LatestBlog';
 import Footer from '../../components/Footer';
@@ -25,6 +26,8 @@ function Home() {
                 activeCategoryId={activeCategoryId} 
                 onCategorySelect={setActiveCategoryId} 
             />
+
+            <HotProducts />
 
             {/* TẦNG 4: Lưới hiển thị danh sách sản phẩm thời trang (Gọi API /api/Products) */}
             <ProductGrid 

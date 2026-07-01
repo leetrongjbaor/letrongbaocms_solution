@@ -70,7 +70,7 @@ function Register() {
                         <div className="col-md-6 col-lg-5">
                             <div className="card border-0 shadow-lg p-4" style={{ borderRadius: '20px', background: '#fff' }}>
                                 <div className="text-center mb-4">
-                                    <div className="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-3" style={{ width: '60px', height: '60px', backgroundColor: '#005088' }}>
+                                    <div className="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-3" style={{ width: '60px', height: '60px', backgroundColor: '#e50914' }}>
                                         <i className="fas fa-user-plus" style={{ fontSize: '24px' }}></i>
                                     </div>
                                     <h3 className="font-weight-bold text-dark mb-1">Đăng Ký Tài Khoản</h3>
@@ -181,8 +181,8 @@ function Register() {
                                         className="btn btn-primary w-100 font-weight-bold shadow-sm mt-3"
                                         disabled={loading}
                                         style={{
-                                            backgroundColor: '#005088',
-                                            borderColor: '#005088',
+                                            backgroundColor: '#e50914',
+                                            borderColor: '#e50914',
                                             borderRadius: '10px',
                                             height: '45px',
                                             fontSize: '15px',

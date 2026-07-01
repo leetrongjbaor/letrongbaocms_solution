@@ -518,3 +518,5 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\Swashbuc
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.MvcApplicationPartsAssemblyInfo.cs
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.xml
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.xml
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\BCrypt-Net-Next.dll
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

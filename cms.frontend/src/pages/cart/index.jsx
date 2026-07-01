@@ -61,6 +61,7 @@ function Cart() {
                         onUpdateQuantity={handleUpdateQuantity}
                         onRemoveItem={handleRemoveItem}
                         onClearCart={handleClearCart}
+                        onCheckout={() => navigate('/checkout')}
                     />
                 </div>
             </main>

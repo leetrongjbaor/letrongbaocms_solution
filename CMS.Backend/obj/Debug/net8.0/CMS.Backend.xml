@@ -45,6 +45,14 @@
             <param name="request">Thông tin tài khoản Email và Mật khẩu</param>
             <returns>Kết quả đăng nhập thành công và thông tin hồ sơ khách hàng</returns>
         </member>
+        <member name="M:CMS.Backend.Controllers.CustomersApiController.UpdateProfile(System.Int32,CMS.Backend.Controllers.CustomerUpdateDTO)">
+            <summary>
+            Cập nhật thông tin hồ sơ khách hàng (Profile)
+            </summary>
+            <param name="id">Mã khách hàng</param>
+            <param name="model">Thông tin cập nhật</param>
+            <returns>Thông tin khách hàng sau khi cập nhật</returns>
+        </member>
         <member name="T:CMS.Backend.Controllers.API.OrderDetailsApiController">
             <summary>
             API Quản lý chi tiết đơn hàng (OrderDetail)
@@ -113,6 +121,13 @@
             <param name="input">Thông tin giỏ hàng và khách hàng đặt hàng</param>
             <returns>Mã đơn hàng mới được tạo</returns>
         </member>
+        <member name="M:CMS.Backend.Controllers.OrdersController.GetByCustomerId(System.Int32)">
+            <summary>
+            Lấy danh sách đơn hàng theo mã khách hàng (dành cho trang Lịch sử đơn hàng)
+            </summary>
+            <param name="customerId">Mã khách hàng</param>
+            <returns>Danh sách đơn hàng kèm chi tiết sản phẩm</returns>
+        </member>
         <member name="M:CMS.Backend.Controllers.PostsApiController.GetAll(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Lấy danh sách toàn bộ bài viết (hỗ trợ phân trang tùy chọn)
@@ -152,6 +167,26 @@
             </summary>
             <param name="id">Mã định danh sản phẩm</param>
             <returns>Thông tin chi tiết sản phẩm</returns>
+        </member>
+        <member name="T:CMS.Backend.Helpers.PasswordHelper">
+            <summary>
+            Bộ hỗ trợ băm và kiểm tra mật khẩu sử dụng BCrypt
+            </summary>
+        </member>
+        <member name="M:CMS.Backend.Helpers.PasswordHelper.HashPassword(System.String)">
+            <summary>
+            Băm mật khẩu thô bằng BCrypt
+            </summary>
+            <param name="password">Mật khẩu dạng thô</param>
+            <returns>Mật khẩu đã được băm</returns>
+        </member>
+        <member name="M:CMS.Backend.Helpers.PasswordHelper.VerifyPassword(System.String,System.String)">
+            <summary>
+            Đối chiếu mật khẩu nhập vào với mật khẩu đã băm (hỗ trợ fallback nếu mật khẩu lưu trữ là chuỗi thô cũ)
+            </summary>
+            <param name="password">Mật khẩu người dùng nhập vào để kiểm tra</param>
+            <param name="hashedPassword">Mật khẩu được lấy từ cơ sở dữ liệu (có thể là hash hoặc plaintext cũ)</param>
+            <returns>True nếu trùng khớp, ngược lại False</returns>
         </member>
     </members>
 </doc>

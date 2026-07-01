@@ -44,7 +44,7 @@ function ProductGrid({ activeCategoryId }) {
             <div className="container">
 
                 <div className="section-heading mb-4 d-flex justify-content-between align-items-center border-bottom pb-2">
-                    <h4 className="font-weight-bold text-uppercase m-0" style={{ color: '#005088' }}>
+                    <h4 className="font-weight-bold text-uppercase m-0" style={{ color: '#e50914' }}>
                         <i className="fas fa-sparkles mr-2 text-warning"></i> Sản phẩm nổi bật
                     </h4>
                     <span className="text-muted" style={{ fontSize: '14px' }}>

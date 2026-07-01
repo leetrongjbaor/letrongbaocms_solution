@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import productService from '../../services/productService';
 import categoryProductService from '../../services/categoryProductService';
 import { getImageUrl } from '../../utils/imageHelper';
+import { addToCart } from '../../utils/cartHelper';
 
 // ========================================================================
 //  TRANG CỬA HÀNG CHUYÊN NGHIỆP — PHONG CÁCH THƯƠNG MẠI ĐIỆN TỬ CAO CẤP
@@ -54,8 +55,12 @@ function Shop() {
             try {
                 setLoadingProducts(true);
                 let data = [];
-                if (selectedCategoryId) {
-                    data = await productService.getProductsByCategory(selectedCategoryId);
+                if (selectedCategoryId || minPrice || maxPrice) {
+                    data = await productService.filterProducts({
+                        categoryProductId: selectedCategoryId,
+                        minPrice,
+                        maxPrice
+                    });
                 } else {
                     data = await productService.getAllProducts();
                 }
@@ -68,7 +73,7 @@ function Shop() {
             }
         };
         loadProducts();
-    }, [selectedCategoryId]);
+    }, [selectedCategoryId, minPrice, maxPrice]);
 
     // ─── FILTER & SORT LOGIC ───────────────────────────────────────────
     const handleResetFilters = useCallback(() => {
@@ -84,8 +89,6 @@ function Shop() {
     const filteredAndSortedProducts = useMemo(() => {
         let filtered = products.filter((item) => {
             if (searchKeyword && !item.name.toLowerCase().includes(searchKeyword.toLowerCase())) return false;
-            if (minPrice && item.price < Number(minPrice)) return false;
-            if (maxPrice && item.price > Number(maxPrice)) return false;
             if (inStockOnly && item.stockQuantity <= 0) return false;
             return true;
         });
@@ -95,7 +98,7 @@ function Shop() {
             if (sortBy === 'priceDesc') return b.price - a.price;
             return b.id - a.id;
         });
-    }, [products, searchKeyword, minPrice, maxPrice, inStockOnly, sortBy]);
+    }, [products, searchKeyword, inStockOnly, sortBy]);
 
     // Reset page when filters change
     useEffect(() => { setCurrentPage(1); }, [searchKeyword, minPrice, maxPrice, inStockOnly, sortBy, selectedCategoryId]);
@@ -125,7 +128,7 @@ function Shop() {
 
                 /* ── SHOP HERO ── */
                 .shop-hero {
-                    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+                    background: linear-gradient(135deg, #070707 0%, #141414 50%, #260307 100%);
                     padding: 56px 0 48px;
                     position: relative;
                     overflow: hidden;
@@ -138,7 +141,7 @@ function Shop() {
                     width: 600px;
                     height: 600px;
                     border-radius: 50%;
-                    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+                    background: radial-gradient(circle, rgba(229,9,20,0.18) 0%, transparent 70%);
                     pointer-events: none;
                 }
                 .shop-hero::after {
@@ -149,7 +152,7 @@ function Shop() {
                     width: 400px;
                     height: 400px;
                     border-radius: 50%;
-                    background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+                    background: radial-gradient(circle, rgba(229,9,20,0.10) 0%, transparent 70%);
                     pointer-events: none;
                 }
                 .shop-hero__title {
@@ -162,13 +165,13 @@ function Shop() {
                     margin-bottom: 10px;
                 }
                 .shop-hero__accent {
-                    background: linear-gradient(135deg, #6366f1, #06b6d4);
+                    background: linear-gradient(135deg, #e50914, #ff2d38);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     background-clip: text;
                 }
                 .shop-hero__subtitle {
-                    color: #94a3b8;
+                    color: #b8b8b8;
                     font-size: 1rem;
                     max-width: 500px;
                     margin-bottom: 0;
@@ -190,7 +193,7 @@ function Shop() {
                 }
                 .shop-hero__stat-label {
                     font-size: 0.75rem;
-                    color: #64748b;
+                    color: #8f8f8f;
                     text-transform: uppercase;
                     letter-spacing: 1px;
                     margin-top: 4px;
@@ -223,16 +226,16 @@ function Shop() {
                     font-family: 'Inter', sans-serif;
                 }
                 .category-pill:hover {
-                    border-color: #6366f1;
-                    color: #6366f1;
+                    border-color: #e50914;
+                    color: #e50914;
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+                    box-shadow: 0 4px 12px rgba(229,9,20,0.18);
                 }
                 .category-pill.active {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
                     border-color: transparent;
-                    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+                    box-shadow: 0 4px 16px rgba(229,9,20,0.28);
                     transform: translateY(-2px);
                 }
 
@@ -275,7 +278,7 @@ function Shop() {
                     font-weight: 700;
                     text-transform: uppercase;
                     letter-spacing: 0.8px;
-                    color: #0f172a;
+                    color: #070707;
                     border-bottom: 1px solid #f8fafc;
                     display: flex;
                     align-items: center;
@@ -312,26 +315,26 @@ function Shop() {
                 }
                 .filter-category-item:hover {
                     background: #f8fafc;
-                    color: #0f172a;
+                    color: #070707;
                     padding-left: 18px;
                 }
                 .filter-category-item.active {
-                    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));
-                    color: #6366f1;
+                    background: linear-gradient(135deg, rgba(229,9,20,0.12), rgba(159,7,16,0.12));
+                    color: #e50914;
                     font-weight: 600;
                     padding-left: 18px;
                 }
                 .filter-category-item .count-badge {
                     font-size: 11px;
                     background: #f1f5f9;
-                    color: #64748b;
+                    color: #8f8f8f;
                     padding: 2px 8px;
                     border-radius: 100px;
                     font-weight: 600;
                 }
                 .filter-category-item.active .count-badge {
-                    background: rgba(99,102,241,0.15);
-                    color: #6366f1;
+                    background: rgba(229,9,20,0.18);
+                    color: #e50914;
                 }
                 .filter-input {
                     width: 100%;
@@ -344,12 +347,12 @@ function Shop() {
                     background: #fff;
                 }
                 .filter-input:focus {
-                    border-color: #6366f1;
-                    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+                    border-color: #e50914;
+                    box-shadow: 0 0 0 3px rgba(229,9,20,0.18);
                     outline: none;
                 }
                 .filter-input::placeholder {
-                    color: #94a3b8;
+                    color: #b8b8b8;
                 }
                 .price-divider {
                     color: #cbd5e1;
@@ -376,7 +379,7 @@ function Shop() {
                     cursor: pointer;
                 }
                 .filter-checkbox.checked {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     border-color: transparent;
                 }
                 .filter-checkbox.checked::after {
@@ -404,8 +407,8 @@ function Shop() {
                 }
                 .filter-reset-btn:hover {
                     background: #f8fafc;
-                    border-color: #6366f1;
-                    color: #6366f1;
+                    border-color: #e50914;
+                    color: #e50914;
                 }
 
                 /* ── PRODUCTS AREA ── */
@@ -435,11 +438,11 @@ function Shop() {
                 }
                 .toolbar-result-text {
                     font-size: 14px;
-                    color: #64748b;
+                    color: #8f8f8f;
                     font-weight: 500;
                 }
                 .toolbar-result-text strong {
-                    color: #0f172a;
+                    color: #070707;
                     font-weight: 700;
                 }
                 .toggle-sidebar-btn {
@@ -448,7 +451,7 @@ function Shop() {
                     border-radius: 10px;
                     border: 1.5px solid #e2e8f0;
                     background: #fff;
-                    color: #64748b;
+                    color: #8f8f8f;
                     font-size: 14px;
                     cursor: pointer;
                     display: flex;
@@ -457,8 +460,8 @@ function Shop() {
                     transition: all 0.2s ease;
                 }
                 .toggle-sidebar-btn:hover {
-                    border-color: #6366f1;
-                    color: #6366f1;
+                    border-color: #e50914;
+                    color: #e50914;
                 }
                 .toolbar-right {
                     display: flex;
@@ -476,7 +479,7 @@ function Shop() {
                     height: 34px;
                     border: none;
                     background: #fff;
-                    color: #94a3b8;
+                    color: #b8b8b8;
                     font-size: 13px;
                     cursor: pointer;
                     display: flex;
@@ -485,7 +488,7 @@ function Shop() {
                     transition: all 0.2s ease;
                 }
                 .view-toggle-btn.active {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
                 }
                 .sort-dropdown {
@@ -503,7 +506,7 @@ function Shop() {
                 }
                 .sort-dropdown:focus {
                     outline: none;
-                    border-color: #6366f1;
+                    border-color: #e50914;
                 }
 
                 /* ── PRODUCT GRID ── */
@@ -602,7 +605,7 @@ function Shop() {
                     border-radius: 12px;
                     border: none;
                     background: rgba(255,255,255,0.95);
-                    color: #0f172a;
+                    color: #070707;
                     font-size: 16px;
                     cursor: pointer;
                     display: flex;
@@ -612,7 +615,7 @@ function Shop() {
                     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 }
                 .overlay-btn:hover {
-                    background: #6366f1;
+                    background: #e50914;
                     color: #fff;
                     transform: scale(1.1);
                 }
@@ -622,7 +625,7 @@ function Shop() {
                 .card-category-tag {
                     font-size: 11px;
                     font-weight: 600;
-                    color: #6366f1;
+                    color: #e50914;
                     text-transform: uppercase;
                     letter-spacing: 0.8px;
                     margin-bottom: 6px;
@@ -630,7 +633,7 @@ function Shop() {
                 .card-title {
                     font-size: 15px;
                     font-weight: 600;
-                    color: #0f172a;
+                    color: #070707;
                     margin-bottom: 8px;
                     line-height: 1.3;
                     display: -webkit-box;
@@ -652,7 +655,7 @@ function Shop() {
                 }
                 .card-stock {
                     font-size: 11.5px;
-                    color: #94a3b8;
+                    color: #b8b8b8;
                     font-weight: 500;
                 }
                 .card-stock.low {
@@ -684,16 +687,16 @@ function Shop() {
                     border: 1.5px solid #e2e8f0;
                 }
                 .card-btn--outline:hover {
-                    border-color: #6366f1;
-                    color: #6366f1;
+                    border-color: #e50914;
+                    color: #e50914;
                 }
                 .card-btn--primary {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
-                    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+                    box-shadow: 0 2px 8px rgba(229,9,20,0.25);
                 }
                 .card-btn--primary:hover {
-                    box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+                    box-shadow: 0 4px 16px rgba(229,9,20,0.35);
                     transform: translateY(-1px);
                 }
 
@@ -740,14 +743,14 @@ function Shop() {
                     font-family: 'Inter', sans-serif;
                 }
                 .page-btn:hover:not(.active):not(:disabled) {
-                    border-color: #6366f1;
-                    color: #6366f1;
+                    border-color: #e50914;
+                    color: #e50914;
                 }
                 .page-btn.active {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
                     border-color: transparent;
-                    box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+                    box-shadow: 0 4px 12px rgba(229,9,20,0.25);
                 }
                 .page-btn:disabled {
                     opacity: 0.4;
@@ -795,7 +798,7 @@ function Shop() {
                     border-radius: 50%;
                     background: #f1f5f9;
                     border: none;
-                    color: #64748b;
+                    color: #8f8f8f;
                     font-size: 18px;
                     cursor: pointer;
                     z-index: 10;
@@ -806,7 +809,7 @@ function Shop() {
                 }
                 .qv-close:hover {
                     background: #e2e8f0;
-                    color: #0f172a;
+                    color: #070707;
                     transform: rotate(90deg);
                 }
                 .qv-body {
@@ -835,7 +838,7 @@ function Shop() {
                     font-family: 'Inter', sans-serif;
                     font-size: 22px;
                     font-weight: 700;
-                    color: #0f172a;
+                    color: #070707;
                     margin-bottom: 12px;
                     line-height: 1.3;
                 }
@@ -861,11 +864,11 @@ function Shop() {
                     font-size: 13.5px;
                 }
                 .qv-meta-item span:first-child {
-                    color: #64748b;
+                    color: #8f8f8f;
                     font-weight: 500;
                 }
                 .qv-meta-item span:last-child {
-                    color: #0f172a;
+                    color: #070707;
                     font-weight: 600;
                 }
                 .qv-actions {
@@ -895,15 +898,15 @@ function Shop() {
                 }
                 .qv-btn--detail:hover {
                     background: #e2e8f0;
-                    color: #0f172a;
+                    color: #070707;
                 }
                 .qv-btn--cart {
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
-                    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+                    box-shadow: 0 4px 16px rgba(229,9,20,0.28);
                 }
                 .qv-btn--cart:hover {
-                    box-shadow: 0 6px 24px rgba(99,102,241,0.4);
+                    box-shadow: 0 6px 24px rgba(229,9,20,0.4);
                     transform: translateY(-2px);
                 }
 
@@ -919,23 +922,23 @@ function Shop() {
                     width: 80px;
                     height: 80px;
                     border-radius: 50%;
-                    background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));
+                    background: linear-gradient(135deg, rgba(229,9,20,0.18), rgba(139,92,246,0.1));
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     margin: 0 auto 20px;
                     font-size: 32px;
-                    color: #6366f1;
+                    color: #e50914;
                 }
                 .empty-state__title {
                     font-family: 'Inter', sans-serif;
                     font-size: 20px;
                     font-weight: 700;
-                    color: #0f172a;
+                    color: #070707;
                     margin-bottom: 8px;
                 }
                 .empty-state__desc {
-                    color: #64748b;
+                    color: #8f8f8f;
                     font-size: 14px;
                     max-width: 400px;
                     margin: 0 auto 20px;
@@ -944,7 +947,7 @@ function Shop() {
                 .empty-state__btn {
                     padding: 12px 28px;
                     border-radius: 12px;
-                    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                    background: linear-gradient(135deg, #e50914, #9f0710);
                     color: #fff;
                     border: none;
                     font-size: 14px;
@@ -954,7 +957,7 @@ function Shop() {
                     font-family: 'Inter', sans-serif;
                 }
                 .empty-state__btn:hover {
-                    box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+                    box-shadow: 0 4px 16px rgba(229,9,20,0.35);
                     transform: translateY(-2px);
                 }
 
@@ -1083,7 +1086,7 @@ function Shop() {
                             {/* Search */}
                             <div className="filter-panel">
                                 <div className="filter-panel__header">
-                                    <i className="fas fa-search" style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1))', color: '#6366f1' }}></i>
+                                    <i className="fas fa-search" style={{ background: 'linear-gradient(135deg, rgba(229,9,20,0.18), rgba(139,92,246,0.1))', color: '#e50914' }}></i>
                                     Tìm kiếm
                                 </div>
                                 <div className="filter-panel__body">
@@ -1100,7 +1103,7 @@ function Shop() {
                             {/* Categories */}
                             <div className="filter-panel">
                                 <div className="filter-panel__header">
-                                    <i className="fas fa-layer-group" style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.1))', color: '#10b981' }}></i>
+                                    <i className="fas fa-layer-group" style={{ background: 'linear-gradient(135deg, rgba(229,9,20,0.12), rgba(159,7,16,0.12))', color: '#ff2d38' }}></i>
                                     Danh mục
                                 </div>
                                 <div className="filter-panel__body" style={{ padding: '8px 12px' }}>
@@ -1202,7 +1205,7 @@ function Shop() {
                                     <span className="toolbar-result-text">
                                         Hiển thị <strong>{filteredAndSortedProducts.length}</strong> sản phẩm
                                         {activeFilterCount > 0 && (
-                                            <span style={{ marginLeft: '6px', color: '#6366f1' }}>
+                                            <span style={{ marginLeft: '6px', color: '#e50914' }}>
                                                 ({activeFilterCount} bộ lọc)
                                             </span>
                                         )}
@@ -1306,7 +1309,7 @@ function Shop() {
                                                         <button
                                                             className="overlay-btn"
                                                             title="Thêm vào giỏ"
-                                                            onClick={(e) => { e.stopPropagation(); alert(`Đã thêm [${product.name}] vào giỏ hàng!`); }}
+                                                            onClick={(e) => { e.stopPropagation(); addToCart(product); }}
                                                         >
                                                             <i className="fas fa-cart-plus"></i>
                                                         </button>
@@ -1334,7 +1337,7 @@ function Shop() {
                                                         </Link>
                                                         <button
                                                             className="card-btn card-btn--primary"
-                                                            onClick={() => alert(`Đã thêm [${product.name}] vào giỏ hàng!`)}
+                                                            onClick={() => addToCart(product)}
                                                         >
                                                             <i className="fas fa-cart-plus"></i> Mua ngay
                                                         </button>
@@ -1420,7 +1423,7 @@ function Shop() {
                                     </div>
                                     <div className="qv-meta-item">
                                         <span>Tồn kho</span>
-                                        <span style={{ color: quickViewProduct.stockQuantity > 0 ? '#10b981' : '#ef4444' }}>
+                                        <span style={{ color: quickViewProduct.stockQuantity > 0 ? '#ff2d38' : '#ef4444' }}>
                                             {quickViewProduct.stockQuantity > 0 ? `${quickViewProduct.stockQuantity} sản phẩm` : 'Hết hàng'}
                                         </span>
                                     </div>
@@ -1435,7 +1438,7 @@ function Shop() {
                                     </Link>
                                     <button
                                         className="qv-btn qv-btn--cart"
-                                        onClick={() => { alert(`Đã thêm [${quickViewProduct.name}] vào giỏ hàng!`); setQuickViewProduct(null); }}
+                                        onClick={() => { addToCart(quickViewProduct); setQuickViewProduct(null); }}
                                     >
                                         <i className="fas fa-cart-plus"></i> Thêm vào giỏ
                                     </button>

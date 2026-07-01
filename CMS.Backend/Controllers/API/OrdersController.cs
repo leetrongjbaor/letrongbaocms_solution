@@ -77,6 +77,26 @@ namespace CMS.Backend.Controllers
 
             try
             {
+                // Kiểm tra sự tồn tại của Khách hàng
+                var customerExists = await _context.Customers.AnyAsync(c => c.Id == input.CustomerId);
+                if (!customerExists)
+                {
+                    return BadRequest(new { message = "Khách hàng không tồn tại trong hệ thống" });
+                }
+
+                // Kiểm tra sự tồn tại của từng Sản phẩm
+                if (input.Items != null && input.Items.Any())
+                {
+                    foreach (var item in input.Items)
+                    {
+                        var productExists = await _context.Products.AnyAsync(p => p.Id == item.ProductId);
+                        if (!productExists)
+                        {
+                            return BadRequest(new { message = $"Sản phẩm với ID {item.ProductId} không tồn tại trên hệ thống" });
+                        }
+                    }
+                }
+
                 var newOrder = new Order
                 {
                     OrderDate  = DateTime.Now,
@@ -87,6 +107,33 @@ namespace CMS.Backend.Controllers
 
                 _context.Orders.Add(newOrder);
                 await _context.SaveChangesAsync();
+
+                // Lưu danh sách sản phẩm mua vào bảng OrderDetails và cập nhật tồn kho
+                if (input.Items != null && input.Items.Any())
+                {
+                    foreach (var item in input.Items)
+                    {
+                        var product = await _context.Products.FindAsync(item.ProductId);
+                        if (product != null)
+                        {
+                            if (product.StockQuantity < item.Quantity)
+                            {
+                                return BadRequest(new { message = $"Sản phẩm '{product.Name}' không đủ số lượng tồn kho (Còn lại: {product.StockQuantity})" });
+                            }
+                            product.StockQuantity -= item.Quantity;
+                        }
+
+                        var detail = new OrderDetail
+                        {
+                            OrderId   = newOrder.Id,
+                            ProductId = item.ProductId,
+                            Quantity  = item.Quantity,
+                            UnitPrice = item.UnitPrice
+                        };
+                        _context.OrderDetails.Add(detail);
+                    }
+                    await _context.SaveChangesAsync();
+                }
 
                 return StatusCode(201, new
                 {
@@ -103,6 +150,40 @@ namespace CMS.Backend.Controllers
                 });
             }
         }
+        /// <summary>
+        /// Lấy danh sách đơn hàng theo mã khách hàng (dành cho trang Lịch sử đơn hàng)
+        /// </summary>
+        /// <param name="customerId">Mã khách hàng</param>
+        /// <returns>Danh sách đơn hàng kèm chi tiết sản phẩm</returns>
+        [HttpGet("customer/{customerId}")]
+        public async Task<IActionResult> GetByCustomerId(int customerId)
+        {
+            var orders = await _context.Orders
+                .Where(o => o.CustomerId == customerId)
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product)
+                .OrderByDescending(o => o.Id)
+                .Select(o => new {
+                    o.Id,
+                    o.OrderDate,
+                    o.Status,
+                    o.Notes,
+                    TotalAmount = o.OrderDetails.Sum(od => od.Quantity * od.UnitPrice),
+                    TotalItems = o.OrderDetails.Sum(od => od.Quantity),
+                    Items = o.OrderDetails.Select(od => new {
+                        od.Id,
+                        od.ProductId,
+                        ProductName = od.Product != null ? od.Product.Name : "",
+                        ProductImage = od.Product != null ? od.Product.ImageUrl : "",
+                        od.Quantity,
+                        od.UnitPrice,
+                        SubTotal = od.Quantity * od.UnitPrice
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return Ok(orders);
+        }
     }
 
     // DTO hứng dữ liệu từ Frontend
@@ -110,5 +191,13 @@ namespace CMS.Backend.Controllers
     {
         public int CustomerId { get; set; }
         public string Notes { get; set; }
+        public List<CartItemDTO>? Items { get; set; }
+    }
+
+    public class CartItemDTO
+    {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }

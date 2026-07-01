@@ -38,12 +38,52 @@ namespace CMS.Backend.Controllers
                     p.Price,
                     p.ImageUrl,
                     p.StockQuantity,
-                    p.Description,                         
+                    p.Description,
+                    p.CategoryProductId,
                     CategoryName = p.CategoryProduct.Name   
                 })
                 .ToListAsync();
 
             return Ok(products);
+        }
+
+        [HttpGet("best-selling")]
+        public async Task<IActionResult> GetBestSelling()
+        {
+            var soldStats = await _context.OrderDetails
+                .GroupBy(od => od.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    SoldQuantity = g.Sum(od => od.Quantity)
+                })
+                .ToListAsync();
+
+            var soldLookup = soldStats.ToDictionary(x => x.ProductId, x => x.SoldQuantity);
+
+            var products = await _context.Products
+                .Include(p => p.CategoryProduct)
+                .ToListAsync();
+
+            var bestSelling = products
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Price,
+                    p.ImageUrl,
+                    p.StockQuantity,
+                    p.Description,
+                    p.CategoryProductId,
+                    CategoryName = p.CategoryProduct != null ? p.CategoryProduct.Name : null,
+                    SoldQuantity = soldLookup.ContainsKey(p.Id) ? soldLookup[p.Id] : 0
+                })
+                .OrderByDescending(p => p.SoldQuantity)
+                .ThenByDescending(p => p.Id)
+                .Take(3)
+                .ToList();
+
+            return Ok(bestSelling);
         }
 
         /// <summary>
@@ -62,8 +102,85 @@ namespace CMS.Backend.Controllers
                     p.Price,
                     p.ImageUrl,
                     p.StockQuantity,
-                    p.Description,                          
+                    p.Description,
+                    p.CategoryProductId,
                     CategoryName = p.CategoryProduct.Name   
+                })
+                .ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilterProducts(
+            [FromQuery] int? categoryProductId,
+            [FromQuery] decimal? minPrice,
+            [FromQuery] decimal? maxPrice)
+        {
+            var query = _context.Products
+                .Include(p => p.CategoryProduct)
+                .AsQueryable();
+
+            if (categoryProductId.HasValue)
+            {
+                query = query.Where(p => p.CategoryProductId == categoryProductId.Value);
+            }
+
+            if (minPrice.HasValue)
+            {
+                query = query.Where(p => p.Price >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                query = query.Where(p => p.Price <= maxPrice.Value);
+            }
+
+            var products = await query
+                .OrderByDescending(p => p.Id)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Price,
+                    p.ImageUrl,
+                    p.StockQuantity,
+                    p.Description,
+                    p.CategoryProductId,
+                    CategoryName = p.CategoryProduct != null ? p.CategoryProduct.Name : null
+                })
+                .ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchProducts([FromQuery] string? keyword)
+        {
+            keyword = keyword?.Trim();
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return Ok(new List<object>());
+            }
+
+            var products = await _context.Products
+                .Include(p => p.CategoryProduct)
+                .Where(p =>
+                    p.Name.Contains(keyword) ||
+                    (p.Description != null && p.Description.Contains(keyword)) ||
+                    (p.CategoryProduct != null && p.CategoryProduct.Name.Contains(keyword)))
+                .OrderByDescending(p => p.Id)
+                .Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.Price,
+                    p.ImageUrl,
+                    p.StockQuantity,
+                    p.Description,
+                    p.CategoryProductId,
+                    CategoryName = p.CategoryProduct != null ? p.CategoryProduct.Name : null
                 })
                 .ToListAsync();
 

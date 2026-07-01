@@ -27,6 +27,20 @@ const customerService = {
             console.error("Lỗi API login customer:", error);
             throw error;
         }
+    },
+
+    /**
+     * Cập nhật thông tin hồ sơ khách hàng
+     * PUT /Customers/{id}
+     */
+    updateProfile: async (id, data) => {
+        try {
+            const response = await axiosClient.put(`/Customers/${id}`, data);
+            return response;
+        } catch (error) {
+            console.error("Lỗi API update profile:", error);
+            throw error;
+        }
     }
 };
 

@@ -1,4 +1,4 @@
-const IMAGE_BASE_URL = "https://localhost:7046";
+const IMAGE_BASE_URL = "http://localhost:5029";
 
 export const getImageUrl = (url, fallback) => {
     if (!url || typeof url !== 'string' || url.trim() === '') {

@@ -16,6 +16,43 @@ const productService = {
         }
     },
 
+    getBestSellingProducts: async () => {
+        try {
+            const response = await axiosClient.get('/Products/best-selling');
+            return response.data || response;
+        } catch (error) {
+            console.error("Lỗi API getBestSellingProducts:", error);
+            throw error;
+        }
+    },
+
+    filterProducts: async ({ categoryProductId, minPrice, maxPrice } = {}) => {
+        try {
+            const params = {};
+            if (categoryProductId) params.categoryProductId = categoryProductId;
+            if (minPrice !== '' && minPrice !== null && minPrice !== undefined) params.minPrice = minPrice;
+            if (maxPrice !== '' && maxPrice !== null && maxPrice !== undefined) params.maxPrice = maxPrice;
+
+            const response = await axiosClient.get('/Products/filter', { params });
+            return response.data || response;
+        } catch (error) {
+            console.error("Lỗi API filterProducts:", error);
+            throw error;
+        }
+    },
+
+    searchProducts: async (keyword) => {
+        try {
+            const response = await axiosClient.get('/Products/search', {
+                params: { keyword }
+            });
+            return response.data || response;
+        } catch (error) {
+            console.error("Lỗi API searchProducts:", error);
+            throw error;
+        }
+    },
+
     /**
      * 2. Lấy danh sách sản phẩm theo danh mục
      * API Endpoint: GET /Products/categoryproduct/{categoryId}
