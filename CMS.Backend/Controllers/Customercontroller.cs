@@ -1,13 +1,8 @@
-/*
-Họ Tên: Lê Trọng Bảo
-MSSV: 2123110056
-VS: 1.0
-*/
+using CMS.Backend.Helpers;
 using CMS.Data;
 using CMS.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CMS.Backend.Helpers;
 
 namespace CMS.Backend.Controllers
 {
@@ -21,14 +16,12 @@ namespace CMS.Backend.Controllers
             _context = context;
         }
 
-        // ===== INDEX =====
         public IActionResult Index()
         {
             var data = _context.Customers.ToList();
             return View(data);
         }
 
-        // ===== CREATE =====
         [HttpGet]
         public IActionResult Create()
         {
@@ -36,33 +29,47 @@ namespace CMS.Backend.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Customer model)
         {
-            if (!string.IsNullOrWhiteSpace(model.Password))
+            if (string.IsNullOrWhiteSpace(model.FullName) ||
+                string.IsNullOrWhiteSpace(model.Email) ||
+                string.IsNullOrWhiteSpace(model.Password))
             {
-                model.Password = PasswordHelper.HashPassword(model.Password);
+                ModelState.AddModelError("", "Họ tên, Email và Mật khẩu là bắt buộc.");
+                return View(model);
             }
+
+            model.Password = PasswordHelper.HashPassword(model.Password);
+            model.ResetPasswordToken = null;
+            model.ResetPasswordTokenExpiresAt = null;
+
             _context.Customers.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // ===== EDIT =====
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var customer = _context.Customers.Find(id);
             if (customer == null) return NotFound();
+
+            customer.Password = string.Empty;
             return View(customer);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Customer model)
         {
             var existingCustomer = _context.Customers.Find(model.Id);
-            if (existingCustomer == null)
+            if (existingCustomer == null) return NotFound();
+
+            if (string.IsNullOrWhiteSpace(model.FullName) || string.IsNullOrWhiteSpace(model.Email))
             {
-                return NotFound();
+                ModelState.AddModelError("", "Họ tên và Email là bắt buộc.");
+                return View(model);
             }
 
             existingCustomer.FullName = model.FullName;
@@ -70,17 +77,19 @@ namespace CMS.Backend.Controllers
             existingCustomer.Phone = model.Phone;
             existingCustomer.Address = model.Address;
 
-            // Nếu người dùng nhập mật khẩu mới thì băm và cập nhật, ngược lại giữ nguyên mật khẩu cũ
             if (!string.IsNullOrWhiteSpace(model.Password))
             {
                 existingCustomer.Password = PasswordHelper.HashPassword(model.Password);
+                existingCustomer.ResetPasswordToken = null;
+                existingCustomer.ResetPasswordTokenExpiresAt = null;
             }
 
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // ===== DELETE =====
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             var customer = _context.Customers.Find(id);
@@ -89,6 +98,7 @@ namespace CMS.Backend.Controllers
                 _context.Customers.Remove(customer);
                 _context.SaveChanges();
             }
+
             return RedirectToAction("Index");
         }
     }

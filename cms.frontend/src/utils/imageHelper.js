@@ -1,4 +1,4 @@
-const IMAGE_BASE_URL = "http://localhost:5029";
+const IMAGE_BASE_URL = process.env.REACT_APP_IMAGE_BASE_URL || "";
 
 export const getImageUrl = (url, fallback) => {
     if (!url || typeof url !== 'string' || url.trim() === '') {

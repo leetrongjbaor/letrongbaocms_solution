@@ -51,7 +51,7 @@ function LatestBlog() { // chỉ lấy 3 tin
 
                 <div className="section-heading mb-4 text-center">
                     <h3 className="font-weight-bold text-uppercase" style={{ color: '#fff' }}>
-                        Xu Hướng Thời Trang
+                        Xu Hướng Công Nghệ
                     </h3>
                     <p className="text-muted lead" style={{ fontSize: '15px' }}>
                         Cập nhật những mẹo phối đồ và tin tức phong cách mới nhất cùng LeTrongBaoCMS

@@ -15,12 +15,28 @@ const saveCartItems = (cartItems) => {
     window.dispatchEvent(new Event('cartUpdated'));
 };
 
+const showStockWarning = (productName, stockQuantity, currentQuantity = 0) => {
+    const stockText = stockQuantity > 0
+        ? `Trong kho chỉ còn ${stockQuantity} sản phẩm.`
+        : 'Sản phẩm hiện đã hết hàng.';
+    const cartText = currentQuantity > 0
+        ? ` Bạn đã có ${currentQuantity} sản phẩm trong giỏ hàng.`
+        : '';
+
+    alert(`Không thể thêm "${productName}" vượt quá số lượng tồn kho.\n${stockText}${cartText}`);
+};
+
 export const addToCart = (product, quantity = 1) => {
     const addQuantity = Math.max(1, Number(quantity) || 1);
     const stockQuantity = Number(product.stockQuantity ?? 0);
 
-    if (stockQuantity <= 0 || addQuantity > stockQuantity) {
-        alert('Số lượng sản phẩm trong kho không đủ!');
+    if (stockQuantity <= 0) {
+        showStockWarning(product.name, stockQuantity);
+        return false;
+    }
+
+    if (addQuantity > stockQuantity) {
+        showStockWarning(product.name, stockQuantity);
         return false;
     }
 
@@ -29,7 +45,7 @@ export const addToCart = (product, quantity = 1) => {
     const currentQuantity = existingItem ? Number(existingItem.quantity || 0) : 0;
 
     if (currentQuantity + addQuantity > stockQuantity) {
-        alert('Số lượng sản phẩm trong kho không đủ!');
+        showStockWarning(product.name, stockQuantity, currentQuantity);
         return false;
     }
 

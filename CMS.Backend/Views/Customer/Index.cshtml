@@ -38,9 +38,11 @@
                     <td class="text-center">
                         <a asp-action="Edit" asp-route-id="@item.Id"
                            class="btn btn-sm btn-outline-warning">Sửa</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id"
-                           class="btn btn-sm btn-outline-danger"
-                           onclick="return confirm('Xóa khách hàng @item.FullName?')">Xóa</a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Xóa khách hàng @item.FullName?')">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                        </form>
                     </td>
                 </tr>
             }

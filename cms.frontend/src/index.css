@@ -1688,9 +1688,11 @@ table td {
   animation: hotSpin 0.9s linear infinite;
 }
 
-.search-empty i {
-  color: var(--gh-red-2);
-  font-size: 54px;
+.search-empty__image {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 30px rgba(229, 9, 20, 0.22));
 }
 
 .search-empty h2 {

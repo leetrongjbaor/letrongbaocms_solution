@@ -116,6 +116,12 @@ function Login() {
                                         </div>
                                     </div>
 
+                                    <div className="text-right mb-3">
+                                        <Link to="/forgot-password" className="small font-weight-bold text-danger text-decoration-none">
+                                            Quên mật khẩu?
+                                        </Link>
+                                    </div>
+
                                     <button
                                         type="submit"
                                         className="btn btn-primary w-100 font-weight-bold shadow-sm"

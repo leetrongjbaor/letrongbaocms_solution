@@ -227,6 +227,22 @@
   },
   {
     "ContainingType": "CMS.Backend.Controllers.CustomersApiController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Customers/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Backend.Controllers.ForgotPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Backend.Controllers.CustomersApiController",
     "Method": "Login",
     "RelativePath": "api/Customers/login",
     "HttpMethod": "POST",
@@ -250,8 +266,24 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "model",
-        "Type": "CMS.Data.Entities.Customer",
+        "Name": "request",
+        "Type": "CMS.Backend.Controllers.CustomerRegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CMS.Backend.Controllers.CustomersApiController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Customers/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CMS.Backend.Controllers.ResetPasswordRequest",
         "IsRequired": true
       }
     ],

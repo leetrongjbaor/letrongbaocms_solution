@@ -12,6 +12,12 @@ import Footer from '../../components/Footer';
 function Home() {
     // Lift state to Home to coordinate CategoryMenu and ProductGrid
     const [activeCategoryId, setActiveCategoryId] = useState(null);
+    const [activeCategoryName, setActiveCategoryName] = useState('');
+
+    const handleCategorySelect = (categoryId, categoryName = '') => {
+        setActiveCategoryId(categoryId);
+        setActiveCategoryName(categoryName);
+    };
 
     return (
         <div className="homepage-container">
@@ -24,15 +30,16 @@ function Home() {
             {/* TẦNG 3: Menu ngang hiển thị danh mục sản phẩm (Gọi API /api/CategoriesProducts) */}
             <CategoryMenu 
                 activeCategoryId={activeCategoryId} 
-                onCategorySelect={setActiveCategoryId} 
+                onCategorySelect={handleCategorySelect} 
             />
-
-            <HotProducts />
 
             {/* TẦNG 4: Lưới hiển thị danh sách sản phẩm thời trang (Gọi API /api/Products) */}
             <ProductGrid 
                 activeCategoryId={activeCategoryId} 
+                activeCategoryName={activeCategoryName}
             />
+
+            <HotProducts />
 
             {/* TẦNG 5: Khối hiển thị các bài viết tin tức xu hướng mặc đẹp (Gọi API /api/Posts) */}
             <LatestBlog />

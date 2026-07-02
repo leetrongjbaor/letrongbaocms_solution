@@ -18,6 +18,7 @@ import Cart from './pages/cart/index';                  // Tự động nạp fi
 import Checkout from './pages/checkout/index';          // Tự động nạp file pages/checkout/index.jsx
 import About from './pages/about/index';                // Trang Giới thiệu GadgetHub.Store
 import Login from './pages/login/index';                // Trang Đăng nhập
+import ForgotPassword from './pages/forgot-password';
 import Register from './pages/register/index';            // Trang Đăng ký
 import Profile from './pages/profile/index';                // Trang Hồ sơ cá nhân
 import OrderHistory from './pages/order-history/index';    // Trang Lịch sử đơn hàng
@@ -74,6 +75,8 @@ function App() {
 
                         {/* Cấu hình Trang Đăng nhập - Địa chỉ "/login" */}
                         <Route path="/login" element={<Login />} />
+
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
 
                         {/* Cấu hình Trang Đăng ký - Địa chỉ "/register" */}
                         <Route path="/register" element={<Register />} />

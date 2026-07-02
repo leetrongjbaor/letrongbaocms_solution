@@ -27,7 +27,15 @@ function Cart() {
     const handleUpdateQuantity = (id, newQuantity) => {
         const updatedCart = cartItems.map(item => {
             if (item.id === id) {
-                return { ...item, quantity: newQuantity };
+                const stockQuantity = Number(item.stockQuantity || 0);
+                const nextQuantity = Math.max(1, Number(newQuantity) || 1);
+
+                if (stockQuantity > 0 && nextQuantity > stockQuantity) {
+                    alert(`Không thể mua thêm "${item.name}". Trong kho chỉ còn ${stockQuantity} sản phẩm.`);
+                    return { ...item, quantity: stockQuantity };
+                }
+
+                return { ...item, quantity: nextQuantity };
             }
             return item;
         });

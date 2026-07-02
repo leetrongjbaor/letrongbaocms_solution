@@ -3,9 +3,12 @@ import productService from '../../services/productService';
 // IMPORT file thành phần component CON VÀO ĐỂ SỬ DỤNG
 import ProductCard from '../../components/ProductCard';
 
-function ProductGrid({ activeCategoryId }) {
+function ProductGrid({ activeCategoryId, activeCategoryName }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const sectionTitle = activeCategoryId
+        ? `Sản phẩm ${activeCategoryName || 'theo danh mục'}`
+        : 'Tất cả sản phẩm';
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -19,7 +22,7 @@ function ProductGrid({ activeCategoryId }) {
                     // Ngược lại, gọi API lấy tất cả sản phẩm
                     data = await productService.getAllProducts();
                 }
-                setProducts(data);
+                setProducts(Array.isArray(data) ? data : []);
             } catch (error) {
                 console.error("Lỗi hệ thống khi tải danh sách sản phẩm:", error);
             } finally {
@@ -32,7 +35,7 @@ function ProductGrid({ activeCategoryId }) {
 
     if (loading) {
         return (
-            <div className="container my-5 text-center">
+            <div id="home-product-grid" className="container my-5 text-center">
                 <div className="spinner-border text-primary" role="status"></div>
                 <p className="mt-2 text-muted">Đang tải danh sách trang phục mới nhất...</p>
             </div>
@@ -40,12 +43,12 @@ function ProductGrid({ activeCategoryId }) {
     }
 
     return (
-        <section className="product-grid-wrapper py-4">
+        <section id="home-product-grid" className="product-grid-wrapper py-4">
             <div className="container">
 
                 <div className="section-heading mb-4 d-flex justify-content-between align-items-center border-bottom pb-2">
                     <h4 className="font-weight-bold text-uppercase m-0" style={{ color: '#e50914' }}>
-                        <i className="fas fa-sparkles mr-2 text-warning"></i> Sản phẩm nổi bật
+                        <i className="fas fa-sparkles mr-2 text-warning"></i> {sectionTitle}
                     </h4>
                     <span className="text-muted" style={{ fontSize: '14px' }}>
                         Hiển thị ({products.length}) sản phẩm

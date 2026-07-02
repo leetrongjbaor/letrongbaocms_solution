@@ -259,7 +259,6 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\appsetti
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\appsettings.json
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.staticwebassets.runtime.json
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.staticwebassets.endpoints.json
-D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.exe
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.deps.json
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.runtimeconfig.json
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.dll
@@ -519,4 +518,14 @@ D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Back
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\CMS.Backend.xml
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.xml
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\BCrypt-Net-Next.dll
+C:\tmp\cms-backend-build\appsettings.Development.json
+C:\tmp\cms-backend-build\appsettings.json
+C:\tmp\cms-backend-build\CMS.Backend.staticwebassets.runtime.json
+C:\tmp\cms-backend-build\CMS.Backend.staticwebassets.endpoints.json
+C:\tmp\cms-backend-build\CMS.Backend.deps.json
+C:\tmp\cms-backend-build\CMS.Backend.runtimeconfig.json
+C:\tmp\cms-backend-build\CMS.Backend.dll
+C:\tmp\cms-backend-build\CMS.Backend.pdb
+C:\tmp\cms-backend-build\CMS.Backend.xml
+D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\bin\Debug\net8.0\CMS.Backend.exe
 D:\BaocaoKetThucMon\letrongbaocms-Solution\CMS.Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

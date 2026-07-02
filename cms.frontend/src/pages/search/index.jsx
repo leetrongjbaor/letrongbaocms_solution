@@ -59,9 +59,13 @@ function SearchPage() {
                         </div>
                     ) : (
                         <div className="search-empty">
-                            <i className="fas fa-search"></i>
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png"
+                                alt="Không tìm thấy sản phẩm"
+                                className="search-empty__image"
+                            />
                             <h2>Không tìm thấy sản phẩm</h2>
-                            <p>Thử nhập từ khóa khác hoặc quay lại cửa hàng để xem thêm sản phẩm.</p>
+                            <p>Không tìm thấy sản phẩm nào phù hợp với yêu cầu bạn.</p>
                         </div>
                     )}
                 </div>

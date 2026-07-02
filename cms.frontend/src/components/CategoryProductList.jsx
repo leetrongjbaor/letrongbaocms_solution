@@ -10,11 +10,12 @@ const CategoryProductList = ({ activeId, onSelectCategory }) => {
             try {
                 setLoading(true);
                 const data = await categoryProductService.getAllCategoryProducts();
-                setCategoryProducts(data);
+                const items = Array.isArray(data) ? data : [];
+                setCategoryProducts(items);
 
                 // Mặc định chọn danh mục đầu tiên nếu danh sách không trống và chưa có activeId
-                if (data && data.length > 0 && activeId === null) {
-                    onSelectCategory(data[0].id);
+                if (items.length > 0 && activeId === null) {
+                    onSelectCategory(items[0].id);
                 }
             } catch (error) {
                 console.error("Lỗi khi tải danh mục sản phẩm:", error);

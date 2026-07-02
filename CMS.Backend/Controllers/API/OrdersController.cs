@@ -5,6 +5,7 @@ VS: 1.0
 */
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CMS.Backend.Services;
 using CMS.Data;
 using CMS.Data.Entities;
 
@@ -18,10 +19,12 @@ namespace CMS.Backend.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -78,13 +81,15 @@ namespace CMS.Backend.Controllers
             try
             {
                 // Kiểm tra sự tồn tại của Khách hàng
-                var customerExists = await _context.Customers.AnyAsync(c => c.Id == input.CustomerId);
-                if (!customerExists)
+                var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == input.CustomerId);
+                if (customer == null)
                 {
                     return BadRequest(new { message = "Khách hàng không tồn tại trong hệ thống" });
                 }
 
                 // Kiểm tra sự tồn tại của từng Sản phẩm
+                var emailItems = new List<OrderEmailItem>();
+
                 if (input.Items != null && input.Items.Any())
                 {
                     foreach (var item in input.Items)
@@ -121,6 +126,12 @@ namespace CMS.Backend.Controllers
                                 return BadRequest(new { message = $"Sản phẩm '{product.Name}' không đủ số lượng tồn kho (Còn lại: {product.StockQuantity})" });
                             }
                             product.StockQuantity -= item.Quantity;
+                            emailItems.Add(new OrderEmailItem
+                            {
+                                ProductName = product.Name,
+                                Quantity = item.Quantity,
+                                UnitPrice = item.UnitPrice
+                            });
                         }
 
                         var detail = new OrderDetail
@@ -134,6 +145,21 @@ namespace CMS.Backend.Controllers
                     }
                     await _context.SaveChangesAsync();
                 }
+
+                var orderEmail = new OrderEmailMessage
+                {
+                    OrderId = newOrder.Id,
+                    CustomerName = customer.FullName,
+                    CustomerEmail = customer.Email,
+                    CustomerPhone = customer.Phone,
+                    ShippingAddress = customer.Address,
+                    Notes = input.Notes,
+                    OrderDate = newOrder.OrderDate,
+                    Items = emailItems
+                };
+
+                await _emailService.SendOrderConfirmationAsync(orderEmail);
+                await _emailService.SendOrderAdminNotificationAsync(orderEmail);
 
                 return StatusCode(201, new
                 {

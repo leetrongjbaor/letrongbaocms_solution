@@ -20,7 +20,7 @@ function CategoryMenu({ activeCategoryId, onCategorySelect }) {
             try {
                 setLoading(true);
                 const data = await categoryProductService.getAllCategoryProducts();
-                setCategories(data || []);
+                setCategories(Array.isArray(data) ? data : []);
             } catch (error) {
                 console.error('Không thể tải danh mục sản phẩm:', error);
             } finally {
@@ -31,8 +31,15 @@ function CategoryMenu({ activeCategoryId, onCategorySelect }) {
         fetchMenuCategories();
     }, []);
 
-    const handleCategoryClick = (id) => {
-        if (onCategorySelect) onCategorySelect(id);
+    const handleCategoryClick = (id, name = '') => {
+        if (onCategorySelect) onCategorySelect(id, name);
+
+        window.setTimeout(() => {
+            document.getElementById('home-product-grid')?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 80);
     };
 
     if (loading) {
@@ -62,7 +69,7 @@ function CategoryMenu({ activeCategoryId, onCategorySelect }) {
                     <button
                         type="button"
                         className={`category-tile ${activeCategoryId === null ? 'active' : ''}`}
-                        onClick={() => handleCategoryClick(null)}
+                        onClick={() => handleCategoryClick(null, '')}
                     >
                         <span className="category-tile__image category-tile__all">
                             <i className="fas fa-th-large"></i>
@@ -80,7 +87,7 @@ function CategoryMenu({ activeCategoryId, onCategorySelect }) {
                                 type="button"
                                 className={`category-tile ${activeCategoryId === cat.id ? 'active' : ''}`}
                                 key={cat.id}
-                                onClick={() => handleCategoryClick(cat.id)}
+                                onClick={() => handleCategoryClick(cat.id, cat.name)}
                             >
                                 <span className="category-tile__image">
                                     <img

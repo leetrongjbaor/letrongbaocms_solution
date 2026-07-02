@@ -18,6 +18,15 @@ const Cart = ({ cartItems, onBack, onUpdateQuantity, onRemoveItem, onClearCart, 
         }
     };
 
+    const handleIncreaseQuantity = (item, maxQuantity) => {
+        if (item.quantity >= maxQuantity) {
+            alert(`Không thể mua thêm "${item.name}". Trong kho chỉ còn ${maxQuantity} sản phẩm.`);
+            return;
+        }
+
+        onUpdateQuantity(item.id, item.quantity + 1);
+    };
+
     return (
         <div className="cart-redesign">
             <section className="cart-hero-new">
@@ -49,7 +58,7 @@ const Cart = ({ cartItems, onBack, onUpdateQuantity, onRemoveItem, onClearCart, 
                     <section className="cart-list-new">
                         {cartItems.map((item) => {
                             const imageUrl = getImageUrl(item.imageUrl, fallbackImage);
-                            const maxQuantity = item.stockQuantity || 99;
+                            const maxQuantity = Number(item.stockQuantity || 99);
 
                             return (
                                 <article className="cart-item-new" key={item.id}>
@@ -83,8 +92,7 @@ const Cart = ({ cartItems, onBack, onUpdateQuantity, onRemoveItem, onClearCart, 
                                                 <span>{item.quantity}</span>
                                                 <button
                                                     type="button"
-                                                    onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                                                    disabled={item.quantity >= maxQuantity}
+                                                    onClick={() => handleIncreaseQuantity(item, maxQuantity)}
                                                 >
                                                     +
                                                 </button>

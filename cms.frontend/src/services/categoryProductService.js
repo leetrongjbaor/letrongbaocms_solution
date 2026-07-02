@@ -1,14 +1,21 @@
-﻿import axiosClient from '../api/axiosClient';
+import axiosClient from '../api/axiosClient';
+
+const normalizeCategoryProducts = (response) => {
+    if (Array.isArray(response)) return response;
+    if (Array.isArray(response?.data)) return response.data;
+    if (Array.isArray(response?.value)) return response.value;
+    if (Array.isArray(response?.items)) return response.items;
+    return [];
+};
 
 const categoryProductService = {
     /**
      * Hàm lấy toàn bộ danh mục SẢN PHẨM từ Backend
      * Endpoint này kết nối tới CategoryProductController trong ASP.NET Core
      */
-    getAllCategoryProducts: () => {
-        // Đường dẫn định tuyến khớp chính xác với cấu trúc định tuyến [Route("api/[controller]")] của Backend
-        const url = '/categoriesproducts';
-        return axiosClient.get(url);
+    getAllCategoryProducts: async () => {
+        const response = await axiosClient.get('/CategoriesProducts');
+        return normalizeCategoryProducts(response);
     }
 };
 

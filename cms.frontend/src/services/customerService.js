@@ -29,6 +29,26 @@ const customerService = {
         }
     },
 
+    forgotPassword: async (email) => {
+        try {
+            const response = await axiosClient.post('/Customers/forgot-password', { email });
+            return response;
+        } catch (error) {
+            console.error("Lỗi API forgot password:", error);
+            throw error;
+        }
+    },
+
+    resetPassword: async (email, token, newPassword) => {
+        try {
+            const response = await axiosClient.post('/Customers/reset-password', { email, token, newPassword });
+            return response;
+        } catch (error) {
+            console.error("Lỗi API reset password:", error);
+            throw error;
+        }
+    },
+
     /**
      * Cập nhật thông tin hồ sơ khách hàng
      * PUT /Customers/{id}

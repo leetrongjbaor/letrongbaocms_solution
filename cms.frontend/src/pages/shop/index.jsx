@@ -40,7 +40,7 @@ function Shop() {
             try {
                 setLoadingCategories(true);
                 const data = await categoryProductService.getAllCategoryProducts();
-                setCategories(data);
+                setCategories(Array.isArray(data) ? data : []);
             } catch (err) {
                 console.error("Lỗi khi tải danh mục sản phẩm:", err);
             } finally {
@@ -930,6 +930,13 @@ function Shop() {
                     font-size: 32px;
                     color: #e50914;
                 }
+                .empty-state__image {
+                    width: 96px;
+                    height: 96px;
+                    object-fit: contain;
+                    margin-bottom: 16px;
+                    filter: drop-shadow(0 14px 24px rgba(229,9,20,0.18));
+                }
                 .empty-state__title {
                     font-family: 'Inter', sans-serif;
                     font-size: 20px;
@@ -1378,12 +1385,14 @@ function Shop() {
                                 </>
                             ) : (
                                 <div className="empty-state">
-                                    <div className="empty-state__icon">
-                                        <i className="fas fa-search"></i>
-                                    </div>
+                                    <img
+                                        src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png"
+                                        alt="Không tìm thấy sản phẩm"
+                                        className="empty-state__image"
+                                    />
                                     <h3 className="empty-state__title">Không tìm thấy sản phẩm</h3>
                                     <p className="empty-state__desc">
-                                        Không có sản phẩm nào khớp với bộ lọc hiện tại. Hãy thử điều chỉnh từ khóa hoặc đặt lại bộ lọc.
+                                        Không tìm thấy sản phẩm nào phù hợp với yêu cầu bạn.
                                     </p>
                                     <button className="empty-state__btn" onClick={handleResetFilters}>
                                         <i className="fas fa-undo-alt mr-1"></i> Đặt lại bộ lọc
